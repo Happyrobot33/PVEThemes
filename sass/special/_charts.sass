@@ -10,5 +10,6 @@
 div[id^="proxmoxRRDChart"][id$="-background"]
     visibility: hidden
 
-div[class^="x-surface-canvas"].[id^="ext-element-"]
+//select canvas#ext-element-*.x-surface-canvas
+canvas[id^="ext-element-"].x-surface-canvas
     filter: opacity(0.1) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white)

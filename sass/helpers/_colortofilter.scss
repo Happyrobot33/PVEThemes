@@ -23,3 +23,15 @@
     </svg>\
     ##{$svg-filter-id}');
 }
+
+@mixin iconPosition() {
+  background-size: 16px 16px;
+	background-position: 3px center;
+	content: ' ';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+}

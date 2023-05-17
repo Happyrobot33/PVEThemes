@@ -79,16 +79,15 @@ def main():
     print("-------------------")
     choice = input("Enter a number: ")
 
-    match choice:
-        case "0":
-            exit()
-        case "1":
-            uninstall()
-        case "2":
-            install()
-        case _:
-            print("Invalid choice")
-            main()
+    if choice == "0":
+        exit()
+    elif choice == "1":
+        uninstall()
+    elif choice == "2":
+        install()
+    else:
+        print("Invalid choice")
+        main()
 
 if __name__ == "__main__":
     main()

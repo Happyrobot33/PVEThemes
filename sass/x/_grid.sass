@@ -3,21 +3,21 @@
 	color: #fff
 
 .x-grid-cell-rowbody
-	background: $dark
+	background: $background
 	color: #fff
 
 .x-grid-item
-	background: $dark
+	background: $background
 	border-width: 0 !important
 	&:hover, &.x-grid-item-selected
 		background-color: $light
 
 .x-grid-item-alt
-	background: $darker
+	background: $background_accent
 	border-width: 0 !important
 
 .x-grid-header-ct
-	background: $dark
+	background: $background
 	border-width: 0 !important
 
 .proxmox-apt-repos .x-grid-group-title, .x-grid-group-title
@@ -28,13 +28,13 @@
 	background-size: 32px
 
 .x-grid-group-hd.x-grid-group-hd-collapsible
-	background: $darker
+	background: $background_accent
 	color: #fff
 	border-width: 0
 
 .x-grid-icon-custom:after
 	//If you use compass, instead of the line below you could use + text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	text-shadow: 0 0 0 $dark
+	text-shadow: 0 0 0 $background
 
 .x-grid-icon-custom.lock-migrate:after
 	color: $yellow
@@ -44,5 +44,5 @@
 	color: #fff
 
 .x-grid-row-summary .x-grid-cell, .x-grid-row-summary .x-grid-rowwrap, .x-grid-row-summary .x-grid-cell-rowbody
-	background-color: $darker !important
-	border-color: $dark
+	background-color: $background_accent !important
+	border-color: $background

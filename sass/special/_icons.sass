@@ -102,8 +102,11 @@
 .fa-volume-up:before
 	color: $text
 
+
 .fa-ceph:before
-	//background-image: url('/pve2/images/dd_cephwhite.png')
+	background-image: url(/pve2/images/logo-ceph.svg)
+	@include iconPosition()
+	@include recolor($text)
 
 .fa-sign-out:before
 	color: $red

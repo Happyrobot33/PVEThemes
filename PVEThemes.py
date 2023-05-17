@@ -1,6 +1,7 @@
 import os
 try:
     import sass
+    from sass import compile
 except ImportError:
     print("FATAL: libsass not installed but required")
     exit(1)

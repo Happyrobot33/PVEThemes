@@ -50,18 +50,36 @@
 
 .pve-itype-icon-pci
 	//background-image: url('/pve2/images/dd_icon-pci.png')
+	background-image: unset
+
+.pve-itype-icon-pci::before
+	background-image: url(/pve2/images/icon-pci.svg)
+	@include iconPosition()
+	@include recolor($text)
 
 .pve-itype-icon-usb
 	//background-image: url('/pve2/images/dd_icon-usb.png')
 
 .pve-itype-icon-serial
 	//background-image: url('/pve2/images/dd_icon-serial.png')
+	background-image: unset
+
+.pve-itype-icon-serial::before
+	background-image: url(/pve2/images/icon-serial.svg)
+	@include iconPosition()
+	@include recolor($text)
 
 .pve-itype-icon-cloud
 	//background-image: url('/pve2/images/dd_icon-cloud.png')
 
 .pve-itype-icon-die
 	//background-image: url('/pve2/images/dd_icon-die.svg')
+	background-image: unset
+
+.pve-itype-icon-die::before
+	background-image: url(/pve2/images/icon-die.svg)
+	@include iconPosition()
+	@include recolor($text)
 
 .fa-exchange:before
 	color: $text

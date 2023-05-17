@@ -1,0 +1,41 @@
+/*!Nordigr*/
+
+$accent: #8FBCBB;
+
+$green: #33A15E;
+$yellow: #E9BC50;
+$red: #992C2E;
+$redlight: #B94F51;
+
+$background: #434C5E;
+$background_accent: #353C4A;
+
+$text: white;
+$button_text: white;
+
+$lightGray: #3D4656;
+$input_background: #3D4656;
+
+@import './sass/_imports.sass';
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+* {
+    font-weight: 350;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 6px;
+    background: $input_background;
+    &:hover {
+        background: $background_accent;
+    }
+}
+
+a {
+    color: $text;
+}

@@ -1,6 +1,6 @@
 import os
 
-proxmoxLibLocation = "samples/proxmoxlib.js"
+proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
@@ -33,7 +33,6 @@ def reinstallProxmoxWidgetToolkit():
         print("----------APT OUTPUT----------")
         os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
         print("------------------------------")
-        proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 
 #patches all of the themes into the proxmoxlib.js file and copys the themes into the themes folder
 def patchThemes():

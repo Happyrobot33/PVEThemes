@@ -10,6 +10,11 @@
 div[id^="proxmoxRRDChart"][id$="-background"]
     visibility: hidden
 
-//select canvas#ext-element-*.x-surface-canvas
-canvas[id^="ext-element-"].x-surface-canvas
+
+
+//select 
+//div#proxmoxRRDChart-*-overlay
+//  div#ext-element-*
+//      canvas#ext-element-*.x-surface-canvas
+div[id^="proxmoxRRDChart"][id$="-overlay"] div[id^="ext-element-"] canvas[id^="ext-element-"]
     filter: opacity(0.1) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white) drop-shadow(0px 0px 0px white)

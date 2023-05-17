@@ -1,0 +1,67 @@
+.x-tree-icon.x-tree-icon-custom
+	&.x-tree-icon-parent-expanded.fa
+		&.fa-server
+			color: $blurple !important
+
+		&.fa-building
+			color: $blurple !important
+
+		&.fa-database
+			color: $blurple !important
+
+		&.fa-desktop
+			color: $blurple !important
+
+		&.fa-cube
+			color: $blurple !important
+	&.x-tree-icon-parent.fa
+		&.fa-server
+			color: $blurple !important
+
+		&.fa-building
+			color: $blurple !important
+
+		&.fa-cube
+			color: $blurple !important
+
+		&.fa-desktop
+			color: $blurple !important
+
+		&.fa-database
+			color: $blurple !important
+	&.x-tree-icon-leaf.fa
+		&.fa-cube
+			color: $lightGray !important
+			&.running
+				color: $blurple !important
+		&.fa-fw.fa-unlock
+			color: white
+		&.fa-desktop
+			color: $blurple !important
+			&.stopped
+				color: $lightGray !important
+		&.fa-database
+			color: $blurple !important
+		&.fa-file-o
+			&:before
+				color: rgba($blurple, 0.6)
+			&:after
+				color: $lightGray
+				background: transparent
+				text-shadow: none
+		&.fa-building.online
+			&:before
+				color: $blurple
+		&.fa-tags
+			color: $lightGray !important
+	&.lock-migrate:after
+		color: $yellow
+
+.x-tree-icon-parent-expanded:not(.x-tree-icon-custom):before, .x-tree-icon-parent:not(.x-tree-icon-custom):before
+	color: white
+
+.x-tree-icon-custom:after
+	text-shadow: 0 0 0 $dark
+
+.x-tree-arrows .x-tree-expander
+	background-image: url('/pve2/images/dd_arrows.png')

@@ -1,0 +1,67 @@
+.x-menu-item-focus
+	background-color: #677bc4
+
+.x-menu-item
+	background: $blurple
+	border-style: none
+	border-width: 0
+
+.x-menu-default
+	background: $blurple
+	border: 1px solid $darker
+
+.x-menu-item-text
+	color: #fff
+
+.x-menu-header
+	border-radius: 1px
+	background: $darker
+	border-width: 0
+
+.x-menu-item-icon-default.x-menu-item-icon.fa
+	&.fa-fw
+		&.fa-building, &.fa-folder, &.fa-floppy-o, &.fa-file-o, &.fa-clone, &.fa-send-o, &.fa-group, &.fa-user, &.fa-user-o, &.fa-bar-chart, &.fa-address-book-o, &.fa-clock-o, &.fa-shield, &.fa-file-text-o, &.fa-yahoo
+			color: #fff
+		&.fa-play
+			color: $green
+		&.fa-stop, &.fa-power-off
+			color: $redlight
+		&.fa-pause, &.fa-download
+			color: $yellow
+
+	&.fa-heartbeat, &.fa-cube, &.fa-terminal, &.fa-desktop, &.fa-trash-o
+		color: #fff
+	&.fa-stop
+		color: $redlight
+
+.x-menu-item-default.x-menu-item-separator
+	height: 0
+	border-top-width: 0
+	margin: 0
+	padding: 0
+
+// 🙃
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"],
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"],
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"], // PVE 7.0
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] // PVE 7.0
+	background: $dark
+
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[class*="x-menu-item-focus"],
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[class*="x-menu-item-focus"],
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) >  div > div:nth-child(2) > div > div[class*="x-menu-item-focus"] > a, // PVE 7.0
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item-focus"] > a // PVE 7.0
+	background: $darker
+
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"],
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"],
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"], // PVE 7.0
+div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"], // PVE 7.0
+	opacity: 0.5
+	background: $darker
+
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"]>div:nth-child(2)>div:nth-child(3)>div:nth-child(1)>div[class*="x-menu-item"]
+	background: inherit
+
+div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"]>div:nth-child(2)>div:nth-child(3)>div:nth-child(1)>div[class*="x-menu-item"]>a[class*="x-menu-item-focus"]
+	background: $darker

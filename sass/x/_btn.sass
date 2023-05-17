@@ -1,0 +1,51 @@
+.x-btn
+	background: $blurple
+	border-width: 0
+	&.x-unselectable.x-box-item
+		&.x-toolbar-item.x-btn-default-toolbar-small
+			&.x-btn-over, &.x-btn-menu-active
+				background-color: #677bc4
+		&.x-btn-default-small.x-btn-over
+			background-color: #677bc4
+	&.x-btn-menu-active.x-btn-default-toolbar-small, &.x-btn.x-btn-pressed.x-btn-default-toolbar-small
+		background-color: #677bc4
+
+.x-btn-over
+	&.x-btn-default-toolbar-small
+		background-color: #677bc4
+
+.x-keyboard-mode .x-btn-focus, .x-btn-focus
+	&.x-btn-default-toolbar-small
+		background-color: $blurple
+
+.x-btn-inner
+	color: #fff
+	&.x-btn-inner-default-small
+		color: #fff
+	&.x-btn-inner-default-toolbar-small
+		color: #fff
+
+.x-btn-disabled
+	background-image: none
+	background-color: #737fab !important
+
+.x-btn-icon-el
+	&.x-btn-icon-el-default-toolbar-small
+		&.fa
+			&.fa-undo, &.fa-terminal, &.fa-send-o, &.fa-fw.fa-ellipsis-v, &.fa-refresh
+				color: #fff
+			&.fa-play
+				color: $green
+			&.fa-power-off
+				color: $redlight
+		&.x-btn-icon-el-default-toolbar-small.fa.fa-question-circle
+			color: #fff
+	&.x-btn-icon-el-default-small.fa
+		&.fa-book.x-btn-icon-el-default-toolbar-small, &.black.fa-gear
+			color: #fff
+
+.x-btn-wrap-default-toolbar-small.x-btn-arrow-right:after
+	background-image: url('/pve2/images/dd_default-toolbar-small-arrow.png')
+
+.x-btn-wrap-default-toolbar-small.x-btn-split-right:after
+	background-image: url('/pve2/images/dd_default-toolbar-small-s-arrow.png')

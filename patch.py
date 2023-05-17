@@ -1,4 +1,9 @@
 import os
+try:
+    import sass
+except ImportError:
+    print("FATAL: libsass not installed but required")
+    exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 
@@ -34,31 +39,61 @@ def reinstallProxmoxWidgetToolkit():
         os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
         print("------------------------------")
 
-#patches all of the themes into the proxmoxlib.js file and copys the themes into the themes folder
-def patchThemes():
-    #get all of the themes to install in the themes folder
+def compileSassThemes():
+    print("Compiling SASS themes...")
+    #get all of the .sass themes to compile
     themes = os.listdir("themes")
 
     for theme in themes:
-        print("Patching " + theme + " into proxmoxlib.js...")
+        #check if it is a .sass file
+        if theme.find(".sass") == -1:
+            continue
+        
+        print("Compiling " + theme + "...")
+        f = open("themes/" + theme, "r", encoding="utf8")
+        #compile the sass file
+        compiledSASS = sass.compile(string=f.read(), output_style="compressed")
+        f.close()
+
+        #create a new .css file with the compiled sass
+        f = open("themes/" + theme[:theme.find(".sass")] + ".css", "w", encoding="utf8")
+        f.write(compiledSASS)
+        f.close()
+    print("Done compiling SASS themes...")
+
+#patches all of the themes into the proxmoxlib.js file and copys the themes into the themes folder
+def patchThemes():
+    print("Patching themes into proxmoxlib.js...")
+    #get all of the .css themes to install in the themes folder
+    themes = os.listdir("themes")
+
+    for theme in themes:
+        #check if it is a .css file
+        if theme.find(".css") == -1:
+            continue
+
 
         #read in the first line of the theme file
         f = open("themes/" + theme, "r", encoding="utf8")
         firstLine = f.readline()
 
         #extract the theme name from the first line comment, which is between /* and */
-        themeTitle = firstLine[firstLine.find("/*") + 2:firstLine.find("*/")]
+        themeTitle = firstLine[firstLine.find("/*!") + 3:firstLine.find("*/")]
 
         #get the theme file name without the .css extension and missing the theme- prefix
         themeFileName = theme[theme.find("theme-") + 6:theme.find(".css")]
 
+        print("Patching " + themeTitle + " into proxmoxlib.js...")
         appendThemeMap(themeFileName, themeTitle)
 
     if os.name == "posix":
         #copy all the themes into the themes folder
         os.system("cp themes/* /usr/share/javascript/proxmox-widget-toolkit/themes")
+    
+    print("Done patching themes into proxmoxlib.js...")
 
 def install():
+    compileSassThemes()
     reinstallProxmoxWidgetToolkit()
     patchThemes()
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
@@ -82,6 +117,7 @@ def main():
     print("1. uninstall")
     print("2. install")
     print("3. update")
+    print("4. compile sass themes")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -93,6 +129,8 @@ def main():
         install()
     elif choice == "3":
         update()
+    elif choice == "4":
+        compileSassThemes()
     else:
         print("Invalid choice")
         main()

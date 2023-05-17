@@ -1,0 +1,41 @@
+/*!Discord Light*/
+
+$accent: #526DD1;
+
+$green: #57F287;
+$yellow: #FFFF00;
+$red: #ED4245;
+$redlight: #d23d3f;
+
+$background: #ff9800;
+$background_accent: #d68000;
+
+$text: black;
+$button_text: white;
+
+$lightGray: #666;
+$input_background: #E1E2E4;
+
+@import './sass/_imports.sass';
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+* {
+    font-weight: 350;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 6px;
+    background: $input_background;
+    &:hover {
+        background: $background_accent;
+    }
+}
+
+a {
+    color: $text;
+}

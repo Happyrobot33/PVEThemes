@@ -106,7 +106,7 @@ def update():
     #git pull self
     os.system("git pull --quiet")
     #exit and run self
-    os.system("python3 patch.py")
+    os.system("python3 PVEThemes.py")
 
 def main():
     print("PVEThemes Installer")

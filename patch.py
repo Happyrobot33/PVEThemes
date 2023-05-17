@@ -4,7 +4,7 @@ proxmoxLibLocation = "samples/proxmoxlib.js"
 
 def modifyThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
-    f = open("samples/proxmoxlib.js", "r+", encoding="utf8")
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
     #read the file
     fileContents = f.read()
 

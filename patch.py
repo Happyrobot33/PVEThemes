@@ -83,7 +83,7 @@ def main():
     print("1. uninstall")
     print("2. install")
     print("3. update")
-    print("-------------------")
+    print("-------------------test")
     choice = input("Enter a number: ")
 
     if choice == "0":

@@ -63,7 +63,7 @@ def compileSassThemes():
 
 #patches all of the themes into the proxmoxlib.js file and copys the themes into the themes folder
 def patchThemes():
-    print("Patching themes into proxmoxlib.js...")
+    print("Patching themes...")
     #get all of the .css themes to install in the themes folder
     themes = os.listdir("themes")
 

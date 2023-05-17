@@ -41,7 +41,9 @@ def modifyThemeMap(themeFileName, themeTitle):
 #if on linux, we should be on a proxmox machine, so apt reinstall proxmox-widget-toolkit to get the original proxmoxlib.js file
 if os.name == "posix":
     print("Reinstalling proxmox-widget-toolkit...")
-    os.system("apt reinstall proxmox-widget-toolkit")
+    print("----------APT OUTPUT----------")
+    os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
+    print("------------------------------")
     proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 
 #get all of the themes to install in the themes folder

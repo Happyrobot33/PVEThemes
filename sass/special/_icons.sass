@@ -32,6 +32,19 @@
 .pve-itype-icon-cdrom
 	//background-image: url('/pve2/images/dd_icon-cd.png')
 
+.pve-itype-icon-cdrom::before
+	background-image: url(../images/icon-cd.svg)
+	background-size: 16px 16px
+	background-position: 3px center
+	content: ' '
+	width: 100%
+	height: 100%
+	position: absolute
+	top: 0
+	left: 0
+	background-repeat: no-repeat
+	@include recolor($text)
+
 //.pve-itype-treelist-item-icon-cdrom
 //	content: ' '
 	//background: url('/pve2/images/dd_icon-cd.png') no-repeat

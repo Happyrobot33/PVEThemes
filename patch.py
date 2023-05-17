@@ -70,7 +70,7 @@ def uninstall():
 
 def update():
     #git pull self
-    os.system("git pull")
+    os.system("git pull --quiet")
     #exit and run self
     os.system("python3 patch.py")
 
@@ -83,7 +83,7 @@ def main():
     print("1. uninstall")
     print("2. install")
     print("3. update")
-    print("-------------------test")
+    print("-------------------")
     choice = input("Enter a number: ")
 
     if choice == "0":

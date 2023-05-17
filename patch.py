@@ -2,7 +2,7 @@ import os
 
 proxmoxLibLocation = "samples/proxmoxlib.js"
 
-def modifyThemeMap(themeFileName, themeTitle):
+def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
     f = open(proxmoxLibLocation, "r+", encoding="utf8")
     #read the file
@@ -26,46 +26,69 @@ def modifyThemeMap(themeFileName, themeTitle):
     f.truncate()
     f.close()
 
-#This file patches the appropriate files to add all of the themes
+def reinstallProxmoxWidgetToolkit():
+    #if on linux, we should be on a proxmox machine, so apt reinstall proxmox-widget-toolkit to get the original proxmoxlib.js file
+    if os.name == "posix":
+        print("Reinstalling proxmox-widget-toolkit...")
+        print("----------APT OUTPUT----------")
+        os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
+        print("------------------------------")
+        proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 
-#DEVELOPMENT PURPOSES
-#copy the backup proxmoxlib.js file to the normal proxmoxlib.js file
-#fA = open("samples/proxmoxlibcopy.js", "r", encoding="utf8")
-#fileContents = fA.read()
-#fA.close()
-#f2 = open("samples/proxmoxlib.js", "w+", encoding="utf8")
-#f2.write(fileContents)
-#f2.close()
-#####
+#patches all of the themes into the proxmoxlib.js file and copys the themes into the themes folder
+def patchThemes():
+    #get all of the themes to install in the themes folder
+    themes = os.listdir("themes")
 
-#if on linux, we should be on a proxmox machine, so apt reinstall proxmox-widget-toolkit to get the original proxmoxlib.js file
-if os.name == "posix":
-    print("Reinstalling proxmox-widget-toolkit...")
-    print("----------APT OUTPUT----------")
-    os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
-    print("------------------------------")
-    proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+    for theme in themes:
+        print("Patching " + theme + " into proxmoxlib.js...")
 
-#get all of the themes to install in the themes folder
-themes = os.listdir("themes")
+        #read in the first line of the theme file
+        f = open("themes/" + theme, "r", encoding="utf8")
+        firstLine = f.readline()
 
-for theme in themes:
-    print("Patching " + theme + " into proxmoxlib.js...")
+        #extract the theme name from the first line comment, which is between /* and */
+        themeTitle = firstLine[firstLine.find("/*") + 2:firstLine.find("*/")]
 
-    #read in the first line of the theme file
-    f = open("themes/" + theme, "r", encoding="utf8")
-    firstLine = f.readline()
+        #get the theme file name without the .css extension and missing the theme- prefix
+        themeFileName = theme[theme.find("theme-") + 6:theme.find(".css")]
 
-    #extract the theme name from the first line comment, which is between /* and */
-    themeTitle = firstLine[firstLine.find("/*") + 2:firstLine.find("*/")]
+        appendThemeMap(themeFileName, themeTitle)
 
-    #get the theme file name without the .css extension and missing the theme- prefix
-    themeFileName = theme[theme.find("theme-") + 6:theme.find(".css")]
+    if os.name == "posix":
+        #copy all the themes into the themes folder
+        os.system("cp themes/* /usr/share/javascript/proxmox-widget-toolkit/themes")
 
-    modifyThemeMap(themeFileName, themeTitle)
+def install():
+    reinstallProxmoxWidgetToolkit()
+    patchThemes()
+    print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
-if os.name == "posix":
-    #copy all the themes into the themes folder
-    os.system("cp themes/* /usr/share/javascript/proxmox-widget-toolkit/themes")
+def uninstall():
+    reinstallProxmoxWidgetToolkit()
+    print("Custom themes uninstalled.")
 
-print("Done installing themes!")
+def main():
+    print("PVEThemes Installer")
+    print("By: Happyrobot33")
+    print("Select an option:")
+    print("-------------------")
+    print("0. Exit")
+    print("1. uninstall")
+    print("2. install")
+    print("-------------------")
+    choice = input("Enter a number: ")
+
+    match choice:
+        case "0":
+            exit()
+        case "1":
+            uninstall()
+        case "2":
+            install()
+        case _:
+            print("Invalid choice")
+            main()
+
+if __name__ == "__main__":
+    main()

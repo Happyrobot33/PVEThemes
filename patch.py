@@ -68,6 +68,12 @@ def uninstall():
     reinstallProxmoxWidgetToolkit()
     print("Custom themes uninstalled.")
 
+def update():
+    #git pull self
+    os.system("git pull")
+    #exit and run self
+    os.system("python3 patch.py")
+
 def main():
     print("PVEThemes Installer")
     print("By: Happyrobot33")
@@ -76,6 +82,7 @@ def main():
     print("0. Exit")
     print("1. uninstall")
     print("2. install")
+    print("3. update")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -85,6 +92,8 @@ def main():
         uninstall()
     elif choice == "2":
         install()
+    elif choice == "3":
+        update()
     else:
         print("Invalid choice")
         main()

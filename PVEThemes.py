@@ -6,8 +6,8 @@ except ImportError:
     print("FATAL: libsass not installed but required")
     exit(1)
 
-proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
-#proxmoxLibLocation = "proxmoxlib.js"
+#proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
@@ -141,13 +141,22 @@ def addButton():
     #add our button right under the buttons array line
     themeEditWindow = themeEditWindow[:buttonsLine + 11] + button + themeEditWindow[buttonsLine + 11:]
 
-    print(themeEditWindow)
+    #print(themeEditWindow)
+
+    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
+    #print(themeEditWindow)
+
+    #replace the fileContents with the new themeEditWindow
+    fileContents = fileContents.replace(fileContents[themeEditWindowLine:themeEditWindowEnd], themeEditWindow)
+
+    #print the area around the themeEditWindow variable
+    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
 
     #write to the file
-    #f.seek(0)
-    #f.write(fileContents)
-    #f.truncate()
-    #f.close()
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
 
 
 def install():

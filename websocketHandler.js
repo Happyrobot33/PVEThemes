@@ -53,7 +53,8 @@ function handleSocket() {
 			}, 500);
 		}
 
-		if (answerString.indexOf("~/PVEThemes#") !== -1) {
+		//check if we see ~/PVEThemes# in the console
+		if (answerString.contains("~/PVEThemes#")) {
 			if (messageSent) {
 				socket.close();
 			}

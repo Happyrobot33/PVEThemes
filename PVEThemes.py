@@ -181,7 +181,7 @@ def install():
     compileSassThemes()
     #check if the user already had the UI control enabled by seeing if sendShellCommand is in the proxmoxlib.js file
     buttonControl = False
-    if open(proxmoxLibLocation, "r", encoding="utf8").read().find("sendShellCommand") != -1:
+    if "sendShellCommand" in open(proxmoxLibLocation, "r", encoding="utf8").read():
         buttonControl = True
 
     reinstallProxmoxWidgetToolkit()

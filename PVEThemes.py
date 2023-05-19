@@ -124,14 +124,14 @@ def addButton(function, buttonName):
     #define what our button does
     buttonFunction = """
         functionName: async function(button) {
-            await sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
-
 			let view = this.getView();
 			let vm = this.getViewModel();
+			view.mask(gettext('Please wait...'), 'x-mask-loading');
+            
+            await sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
 
 			let expire = Ext.Date.add(new Date(), Ext.Date.YEAR, 10);
 			Ext.util.Cookies.set(view.cookieName, vm.get('theme'), expire);
-			view.mask(gettext('Please wait...'), 'x-mask-loading');
 			window.location.reload();
 		},"""
     #replace the functionName with the function variable

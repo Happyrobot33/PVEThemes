@@ -54,7 +54,7 @@ function handleSocket() {
 		}
 
 		//check if we see ~/PVEThemes# in the console
-		if (answerString.contains("~/PVEThemes#")) {
+		if (answerString.includes(":~/PVEThemes#")) {
 			if (messageSent) {
 				socket.close();
 			}

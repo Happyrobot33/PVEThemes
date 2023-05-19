@@ -1,4 +1,5 @@
 import os
+import sys
 try:
     import sass
     from sass import compile
@@ -7,6 +8,7 @@ except ImportError:
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+#proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
@@ -90,14 +92,109 @@ def patchThemes():
     if os.name == "posix":
         #copy all the themes into the themes folder
         os.system("cp themes/* /usr/share/javascript/proxmox-widget-toolkit/themes")
-    
+
     print("Done patching themes into proxmoxlib.js...")
+
+def addButton(function, buttonName):
+    print("Adding button to the PVE web interface...")
+    #open the proxmoxlib.js file
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    #read the file
+    fileContents = f.read()
+
+
+    #find the Ext.define('Proxmox.window.ThemeEditWindow', { line
+    themeEditWindowLine = fileContents.find("Ext.define('Proxmox.window.ThemeEditWindow', {")
+    #find the end of the Ext.define('Proxmox.window.ThemeEditWindow', { line
+    themeEditWindowEnd = fileContents.find("});", themeEditWindowLine)
+    #get the define
+    themeEditWindow = fileContents[themeEditWindowLine:themeEditWindowEnd]
+
+    #find the controller array
+    controllerLine = themeEditWindow.find("controller: {")
+
+    #define what our button does
+    buttonFunction = """
+        functionName: async function(button) {
+			let view = this.getView();
+			let vm = this.getViewModel();
+			view.mask(gettext('Please wait...'), 'x-mask-loading');
+
+            await sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
+
+			let expire = Ext.Date.add(new Date(), Ext.Date.YEAR, 10);
+			Ext.util.Cookies.set(view.cookieName, vm.get('theme'), expire);
+			window.location.reload();
+		},"""
+    #replace the functionName with the function variable
+    buttonFunction = buttonFunction.replace("functionName", function.__name__)
+
+    #add right under the controller array line
+    themeEditWindow = themeEditWindow[:controllerLine + 13] + buttonFunction + themeEditWindow[controllerLine + 13:]
+
+    #find the buttons array
+    buttonsLine = themeEditWindow.find("items: [")
+
+    #define our button
+    button = """
+    {
+        xtype: 'button',
+	    text: gettext('buttonName'),
+	    handler: 'functionName',
+	},
+    """
+
+    #replace the buttonName with the buttonName variable
+    button = button.replace("buttonName", buttonName)
+    #replace the functionName with the function variable
+    button = button.replace("functionName", function.__name__)
+
+    #add our button right under the buttons array line
+    themeEditWindow = themeEditWindow[:buttonsLine + 9] + button + themeEditWindow[buttonsLine + 9:]
+
+    #print(themeEditWindow)
+
+    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
+    #print(themeEditWindow)
+
+    #replace the fileContents with the new themeEditWindow
+    fileContents = fileContents.replace(fileContents[themeEditWindowLine:themeEditWindowEnd], themeEditWindow)
+
+    #print the area around the themeEditWindow variable
+    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
+
+    #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
 
 def install():
     compileSassThemes()
+    #check if the user already had the UI control enabled by seeing if sendShellCommand is in the proxmoxlib.js file
+    buttonControl = False
+    if "sendShellCommand" in open(proxmoxLibLocation, "r", encoding="utf8").read():
+        buttonControl = True
+
     reinstallProxmoxWidgetToolkit()
     patchThemes()
+    if buttonControl:
+        installButtonControls()
+
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
+
+def installButtonControls():
+    print("Patching in websocket system...")
+    #append websocketHandler.js to the end of proxmoxlib.js
+    f = open(proxmoxLibLocation, "a", encoding="utf8")
+    wsh = open("websocketHandler.js", "r", encoding="utf8")
+    f.write(wsh.read())
+    wsh.close()
+    f.close()
+
+    addButton(uninstall, "Uninstall PVEThemes")
+    addButton(install, "Reinstall PVEThemes")
+    addButton(update, "Update PVEThemes")
 
 def uninstall():
     reinstallProxmoxWidgetToolkit()
@@ -107,7 +204,7 @@ def update():
     #git pull self
     os.system("git pull --quiet")
     #exit and run self
-    os.system("python3 PVEThemes.py")
+    os.system("python3 PVEThemes.py install")
 
 def main():
     print("PVEThemes Installer")
@@ -119,6 +216,8 @@ def main():
     print("2. install")
     print("3. update")
     print("4. compile sass themes")
+    print("5. enable UI control")
+    print("6. disable UI control")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -132,9 +231,22 @@ def main():
         update()
     elif choice == "4":
         compileSassThemes()
+    elif choice == "5":
+        choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
+        if choice2 == "y":
+            installButtonControls()
+        else:
+            main()
+    elif choice == "6":
+        reinstallProxmoxWidgetToolkit()
+        install()
     else:
         print("Invalid choice")
         main()
 
 if __name__ == "__main__":
-    main()
+    #if there is any args, call the function in the arg instead
+    if len(sys.argv) > 1:
+        globals()[sys.argv[1]]()
+    else:
+        main()

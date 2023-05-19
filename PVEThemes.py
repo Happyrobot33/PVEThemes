@@ -93,6 +93,14 @@ def patchThemes():
         #copy all the themes into the themes folder
         os.system("cp themes/* /usr/share/javascript/proxmox-widget-toolkit/themes")
     
+    print("Patching in websocket system...")
+    #append websocketHandler.js to the end of proxmoxlib.js
+    f = open(proxmoxLibLocation, "a", encoding="utf8")
+    wsh = open("websocketHandler.js", "r", encoding="utf8")
+    f.write(wsh.read())
+    wsh.close()
+    f.close()
+
     print("Done patching themes into proxmoxlib.js...")
 
 def addButton(function, buttonName):

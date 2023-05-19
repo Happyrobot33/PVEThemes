@@ -36,20 +36,30 @@ function handleSocket() {
 	//we need to send a log in message first
 	socket.send(Proxmox.UserName + ":" + ticket + "\n");
 
+	var messageSent = false;
+
 	//we need to wait for the console to be ready
 	socket.onmessage = function (event) {
 		var answer = new Uint8Array(event.data);
+		var answerString = String.fromCharCode.apply(null, answer);
 		//OK check
-		if (answer[0] === 79 && answer[1] === 75) {
-			//wait a second
+		if (answerString.indexOf("OK") !== -1) {
+			//wait for the console to be ready
 			setTimeout(() => {
 				var length = requestString.length;
 				socket.send("0:" + length + ":" + requestString);
 				socket.send("0:1:\r\n");
+				messageSent = true;
 				setTimeout(() => {
 					socket.close();
 				}, 1000);
-			}, 1000);
+			}, 500);
+		}
+
+		if (answerString.indexOf("~/PVEThemes#") !== -1) {
+			if (messageSent) {
+				socket.close();
+			}
 		}
 	}
 }

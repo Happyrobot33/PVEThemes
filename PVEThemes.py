@@ -1,4 +1,5 @@
 import os
+import sys
 try:
     import sass
     from sass import compile
@@ -219,4 +220,8 @@ def main():
         main()
 
 if __name__ == "__main__":
-    main()
+    #if there is any args, call the function in the arg instead
+    if len(sys.argv) > 1:
+        globals()[sys.argv[1]]()
+    else:
+        main()

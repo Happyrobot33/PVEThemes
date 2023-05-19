@@ -127,7 +127,7 @@ def addButton(function, buttonName):
 			let view = this.getView();
 			let vm = this.getViewModel();
 			view.mask(gettext('Please wait...'), 'x-mask-loading');
-            
+
             await sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
 
 			let expire = Ext.Date.add(new Date(), Ext.Date.YEAR, 10);
@@ -179,12 +179,22 @@ def addButton(function, buttonName):
 
 def install():
     compileSassThemes()
+    #check if the user already had the UI control enabled by seeing if sendShellCommand is in the proxmoxlib.js file
+    buttonControl = False
+    if open(proxmoxLibLocation, "r", encoding="utf8").read().find("sendShellCommand") != -1:
+        buttonControl = True
+
     reinstallProxmoxWidgetToolkit()
     patchThemes()
+    if buttonControl:
+        installButtonControls()
+
+    print("Done! Clear your browser cache and refresh the page to see the new themes.")
+
+def installButtonControls():
     addButton(uninstall, "Uninstall PVEThemes")
     addButton(install, "Reinstall PVEThemes")
     addButton(update, "Update PVEThemes")
-    print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
 def uninstall():
     reinstallProxmoxWidgetToolkit()
@@ -206,6 +216,8 @@ def main():
     print("2. install")
     print("3. update")
     print("4. compile sass themes")
+    print("5. enable UI control")
+    print("6. disable UI control")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -219,6 +231,10 @@ def main():
         update()
     elif choice == "4":
         compileSassThemes()
+    elif choice == "5":
+        installButtonControls()
+    elif choice == "6":
+        install()
     else:
         print("Invalid choice")
         main()

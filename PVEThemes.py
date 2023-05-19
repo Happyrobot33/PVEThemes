@@ -7,6 +7,7 @@ except ImportError:
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+#proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file
@@ -93,10 +94,67 @@ def patchThemes():
     
     print("Done patching themes into proxmoxlib.js...")
 
+def addButton():
+    print("Adding button to the PVE web interface...")
+    #open the proxmoxlib.js file
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    #read the file
+    fileContents = f.read()
+
+
+    #find the Ext.define('Proxmox.window.ThemeEditWindow', { line
+    themeEditWindowLine = fileContents.find("Ext.define('Proxmox.window.ThemeEditWindow', {")
+    #find the end of the Ext.define('Proxmox.window.ThemeEditWindow', { line
+    themeEditWindowEnd = fileContents.find("});", themeEditWindowLine)
+    #get the define
+    themeEditWindow = fileContents[themeEditWindowLine:themeEditWindowEnd]
+
+    #find the controller array
+    controllerLine = themeEditWindow.find("controller: {")
+
+    #define what our button does
+    buttonFunction = """
+        applyTheme2: function(button) {
+			let view = this.getView();
+			let vm = this.getViewModel();
+
+			let expire = Ext.Date.add(new Date(), Ext.Date.YEAR, 10);
+			Ext.util.Cookies.set(view.cookieName, vm.get('theme'), expire);
+			view.mask(gettext('Please wait...'), 'x-mask-loading');
+			window.location.reload();
+		},"""
+    
+    #add right under the controller array line
+    themeEditWindow = themeEditWindow[:controllerLine + 13] + buttonFunction + themeEditWindow[controllerLine + 13:]
+
+    #find the buttons array
+    buttonsLine = themeEditWindow.find("buttons: [")
+
+    #define our button
+    button = """
+    {
+	    text: gettext('Apply2'),
+	    handler: 'applyTheme2',
+	},
+    """
+
+    #add our button right under the buttons array line
+    themeEditWindow = themeEditWindow[:buttonsLine + 11] + button + themeEditWindow[buttonsLine + 11:]
+
+    print(themeEditWindow)
+
+    #write to the file
+    #f.seek(0)
+    #f.write(fileContents)
+    #f.truncate()
+    #f.close()
+
+
 def install():
     compileSassThemes()
     reinstallProxmoxWidgetToolkit()
     patchThemes()
+    addButton()
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
 def uninstall():

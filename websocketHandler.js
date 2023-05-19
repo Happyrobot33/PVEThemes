@@ -50,9 +50,6 @@ function handleSocket() {
 				socket.send("0:" + length + ":" + requestString);
 				socket.send("0:1:\r\n");
 				messageSent = true;
-				setTimeout(() => {
-					socket.close();
-				}, 1000);
 			}, 500);
 		}
 

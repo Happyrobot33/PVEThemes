@@ -141,11 +141,12 @@ def addButton(function, buttonName):
     themeEditWindow = themeEditWindow[:controllerLine + 13] + buttonFunction + themeEditWindow[controllerLine + 13:]
 
     #find the buttons array
-    buttonsLine = themeEditWindow.find("buttons: [")
+    buttonsLine = themeEditWindow.find("items: [")
 
     #define our button
     button = """
     {
+        xtype: 'button',
 	    text: gettext('buttonName'),
 	    handler: 'functionName',
 	},
@@ -157,7 +158,7 @@ def addButton(function, buttonName):
     button = button.replace("functionName", function.__name__)
 
     #add our button right under the buttons array line
-    themeEditWindow = themeEditWindow[:buttonsLine + 11] + button + themeEditWindow[buttonsLine + 11:]
+    themeEditWindow = themeEditWindow[:buttonsLine + 9] + button + themeEditWindow[buttonsLine + 9:]
 
     #print(themeEditWindow)
 

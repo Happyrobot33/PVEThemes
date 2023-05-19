@@ -21,18 +21,15 @@ async function sendShellCommand(requestStringVar) {
 	    socket = new WebSocket(socketURL, 'binary');
 	    socket.binaryType = 'arraybuffer';
 	    socket.onopen = handleSocket;
+		//return when the socket is closed
+		socket.onclose = function() {
+			return;
+		}
 	},
 	failure: function(msg) {
 	    console.log(msg);
 	}
     });
-
-	//return when the socket is closed
-	return new Promise((resolve, reject) => {
-		socket.onclose = function() {
-			resolve();
-		}
-	});
 }
 
 function handleSocket() {

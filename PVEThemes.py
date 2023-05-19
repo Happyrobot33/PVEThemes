@@ -169,11 +169,16 @@ def debug():
     #send a system wide notification
     os.system("wall 'Debug button pressed!'")
 
+def debug2():
+    #send a system wide notification
+    os.system("wall 'Debug button pressed!'")
+
 def install():
     compileSassThemes()
     reinstallProxmoxWidgetToolkit()
     patchThemes()
-    addButton(debug, "Debug")
+    addButton(debug, "This is not a normal button!")
+    addButton(debug2, "Neither is this one!")
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
 def uninstall():

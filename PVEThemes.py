@@ -94,7 +94,7 @@ def patchThemes():
     
     print("Done patching themes into proxmoxlib.js...")
 
-def addButton():
+def addButton(function, buttonName):
     print("Adding button to the PVE web interface...")
     #open the proxmoxlib.js file
     f = open(proxmoxLibLocation, "r+", encoding="utf8")
@@ -114,7 +114,7 @@ def addButton():
 
     #define what our button does
     buttonFunction = """
-        applyTheme2: function(button) {
+        functionName: function(button) {
 			let view = this.getView();
 			let vm = this.getViewModel();
 
@@ -123,7 +123,9 @@ def addButton():
 			view.mask(gettext('Please wait...'), 'x-mask-loading');
 			window.location.reload();
 		},"""
-    
+    #replace the functionName with the function variable
+    buttonFunction = buttonFunction.replace("functionName", function.__name__)
+
     #add right under the controller array line
     themeEditWindow = themeEditWindow[:controllerLine + 13] + buttonFunction + themeEditWindow[controllerLine + 13:]
 
@@ -133,10 +135,15 @@ def addButton():
     #define our button
     button = """
     {
-	    text: gettext('Apply2'),
-	    handler: 'applyTheme2',
+	    text: gettext('buttonName'),
+	    handler: 'functionName',
 	},
     """
+
+    #replace the buttonName with the buttonName variable
+    button = button.replace("buttonName", buttonName)
+    #replace the functionName with the function variable
+    button = button.replace("functionName", function.__name__)
 
     #add our button right under the buttons array line
     themeEditWindow = themeEditWindow[:buttonsLine + 11] + button + themeEditWindow[buttonsLine + 11:]
@@ -158,12 +165,15 @@ def addButton():
     f.truncate()
     f.close()
 
+def debug():
+    #send a system wide notification
+    os.system("wall 'Debug button pressed!'")
 
 def install():
     compileSassThemes()
     reinstallProxmoxWidgetToolkit()
     patchThemes()
-    addButton()
+    addButton(debug, "Debug")
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
 def uninstall():

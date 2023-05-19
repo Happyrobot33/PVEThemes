@@ -176,20 +176,13 @@ def addButton(function, buttonName):
     f.truncate()
     f.close()
 
-def debug():
-    #send a system wide notification
-    os.system("wall 'Debug button pressed!'")
-
-def debug2():
-    #send a system wide notification
-    os.system("wall 'Debug button pressed!'")
-
 def install():
     compileSassThemes()
     reinstallProxmoxWidgetToolkit()
     patchThemes()
-    addButton(debug, "This is not a normal button!")
-    addButton(debug2, "Neither is this one!")
+    addButton(uninstall, "Uninstall PVEThemes")
+    addButton(install, "Reinstall PVEThemes")
+    addButton(update, "Update PVEThemes")
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
 def uninstall():
@@ -200,7 +193,7 @@ def update():
     #git pull self
     os.system("git pull --quiet")
     #exit and run self
-    os.system("python3 PVEThemes.py")
+    os.system("python3 PVEThemes.py install")
 
 def main():
     print("PVEThemes Installer")

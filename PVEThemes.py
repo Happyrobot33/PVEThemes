@@ -232,7 +232,11 @@ def main():
     elif choice == "4":
         compileSassThemes()
     elif choice == "5":
-        installButtonControls()
+        choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
+        if choice2 == "y":
+            installButtonControls()
+        else:
+            main()
     elif choice == "6":
         reinstallProxmoxWidgetToolkit()
         install()

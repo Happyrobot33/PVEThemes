@@ -234,6 +234,7 @@ def main():
     elif choice == "5":
         installButtonControls()
     elif choice == "6":
+        reinstallProxmoxWidgetToolkit()
         install()
     else:
         print("Invalid choice")

@@ -6,8 +6,8 @@ except ImportError:
     print("FATAL: libsass not installed but required")
     exit(1)
 
-#proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
-proxmoxLibLocation = "proxmoxlib.js"
+proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+#proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
     #open the proxmoxlib.js file

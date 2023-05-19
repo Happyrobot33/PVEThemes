@@ -124,7 +124,7 @@ def addButton(function, buttonName):
     #define what our button does
     buttonFunction = """
         functionName: function(button) {
-            sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
+            await sendShellCommand("cd ~/PVEThemes && python3 PVEThemes.py functionName");
 
 			let view = this.getView();
 			let vm = this.getViewModel();

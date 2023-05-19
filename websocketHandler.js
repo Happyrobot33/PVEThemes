@@ -2,7 +2,7 @@ var socket;
 var ticket;
 var requestString;
 
-function sendShellCommand(requestStringVar) {
+async function sendShellCommand(requestStringVar) {
     protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
 	requestString = requestStringVar;
 
@@ -26,6 +26,13 @@ function sendShellCommand(requestStringVar) {
 	    console.log(msg);
 	}
     });
+
+	//return when the socket is closed
+	return new Promise((resolve, reject) => {
+		socket.onclose = function() {
+			resolve();
+		}
+	});
 }
 
 function handleSocket() {

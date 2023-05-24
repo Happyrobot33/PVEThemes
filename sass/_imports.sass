@@ -35,3 +35,33 @@
 @import './sass/special/_proxmox.sass';
 @import './sass/special/_borders.sass';
 @import './sass/special/_charts.sass';
+
+::root
+    --pwt-panel-background: $background_accent;
+    --pwt-text-color: $text;
+    --pwt-gauge-default: $green;
+    --pwt-gauge-back: $background;
+    --pwt-gauge-warn: $yellow;
+    --pwt-gauge-crit: $red;
+    --pwt-chart-primary: $accent;
+    --pwt-chart-grid-stroke: $background;
+
+html
+    overflow: scroll;
+    overflow-x: hidden;
+
+*
+    font-weight: 350;
+
+
+::-webkit-scrollbar
+    width: 0;
+    height: 6px;
+    background: $input_background;
+    &:hover 
+        background: $background_accent;
+
+a
+    color: $text;
+
+    

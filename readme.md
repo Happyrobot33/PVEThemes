@@ -18,3 +18,8 @@ if you have ran the install.sh script before, you can instead just directly run 
 ```bash
 python3 PVEThemes.py
 ```
+
+![avali](./themes/previews/theme-avali.png)
+![discord dark](./themes/previews/theme-discord-dark.png)
+![discord light](./themes/previews/theme-discord-light.png)
+![nordigr](./themes/previews/theme-nordigr.png)

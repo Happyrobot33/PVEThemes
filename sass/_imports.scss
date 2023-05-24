@@ -36,7 +36,7 @@
 @import './sass/special/_borders.sass';
 @import './sass/special/_charts.sass';
 
-::root
+:root {
     --pwt-panel-background: #{$background_accent};
     --pwt-text-color: #{$text};
     --pwt-gauge-default: #{$green};
@@ -45,23 +45,27 @@
     --pwt-gauge-crit: #{$red};
     --pwt-chart-primary: #{$accent};
     --pwt-chart-grid-stroke: #{$background};
+}
 
-html
+html {
     overflow: scroll;
     overflow-x: hidden;
+}
 
-*
+* {
     font-weight: 350;
+}
 
-
-::-webkit-scrollbar
+::-webkit-scrollbar {
     width: 0;
     height: 6px;
     background: $input_background;
-    &:hover 
+
+    &:hover {
         background: $background_accent;
+    }
+}
 
-a
+a {
     color: $text;
-
-    
+}

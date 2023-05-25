@@ -52,8 +52,8 @@ function handleSocket() {
 			}, 500);
 		}
 
-		//check if we see ~/PVEThemes# in the console
-		if (answerString.includes(":~/PVEThemes#")) {
+		//check if we see an escape char in the console
+		if (answerString.includes("[?2004h")) {
 			if (messageSent) {
 				socket.close();
 			}

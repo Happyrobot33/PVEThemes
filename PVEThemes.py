@@ -235,8 +235,6 @@ def addZFSBar():
     #add the item right under the memory bar item
     items = items[:memoryBarEnd + 2] + item + items[memoryBarEnd + 2:]
 
-    print(items)
-
     define = define[:itemLineStart + len(itemLineStartSTR)] + items + define[itemLineEnd + len(itemLineEndSTR):]
 
     fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)

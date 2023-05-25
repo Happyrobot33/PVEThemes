@@ -169,6 +169,66 @@ def addButton(function, buttonName):
     f.truncate()
     f.close()
 
+def addZFSBar():
+    print("Adding ZFS bar to the PVE web interface...")
+    #open the proxmoxlib.js file
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    #read the file
+    fileContents = f.read()
+
+    defineLineStart = fileContents.find("Ext.define('PVE.node.StatusView', {")
+    defineLineEnd = fileContents.find("});", defineLineStart)
+    #get the define
+    define = fileContents[defineLineStart:defineLineEnd]
+
+    #find the items array
+    itemLine = define.find("items: [")
+
+    #define our item
+    item = """
+    {
+	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
+	    itemId: 'arc',
+	    title: "ARC size",
+		valueField: 'arc',
+	    maxField: 'arc',
+		renderer: function() {
+			let me = this;
+
+			//create arc variables
+			arc_used = 12355718144;
+			arc_total = 62355718144;
+
+			this.setData({
+				usage: arc_used / arc_total,
+			});
+
+			//create arc record
+			record = Ext.create('KeyValue', 
+				{
+					key: "arc",
+					used: arc_used,
+					total: arc_total,
+				},
+			);
+			//add arc to store
+			me.up().getStore().add(record);
+			return Proxmox.Utils.render_node_size_usage(record.data);
+		},
+	},
+    """
+
+    #add the item right under the items array line
+    define = define[:itemLine + 9] + item + define[itemLine + 9:]
+
+    fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
+
+    #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
 def install():
     compileSassThemes()
     #check if the user already had the UI control enabled by seeing if sendShellCommand is in the proxmoxlib.js file
@@ -235,6 +295,7 @@ def main():
         choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
         if choice2 == "y":
             installButtonControls()
+            addZFSBar()
         else:
             main()
     elif choice == "6":

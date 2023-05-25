@@ -16,13 +16,12 @@ async function sendShellCommand(requestStringVar) {
 			success: function (result) {
 				var port = encodeURIComponent(result.data.port);
 				ticket = result.data.ticket;
-				//https://aether.matthewherber.com:8007/api2/json/nodes/Aether/termproxy/vncwebsocket?port=8007&vncticket=
 				socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/api2/json' + url + '/vncwebsocket?port=' + port + '&vncticket=' + encodeURIComponent(ticket);
 
 				socket = new WebSocket(socketURL, 'binary');
 				socket.binaryType = 'arraybuffer';
 				socket.onopen = handleSocket;
-				socket.onclose = resolve;
+				socket.onclose = resolve(30);
 				socket.onerror = reject;
 			},
 			failure: function (msg) {

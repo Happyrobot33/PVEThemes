@@ -8,7 +8,7 @@ except ImportError:
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
-pvemanagerlibLocation = "/usr/share/pve-manager/ext6/pvemanagerlib.js"
+pvemanagerlibLocation = "/usr/share/pve-manager/js/pvemanagerlib.js"
 #proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
@@ -40,7 +40,7 @@ def reinstallProxmoxWidgetToolkit():
     if os.name == "posix":
         print("Reinstalling proxmox-widget-toolkit...")
         print("----------APT OUTPUT----------")
-        os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
+        os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit pve-manager")
         print("------------------------------")
 
 def compileSassThemes():

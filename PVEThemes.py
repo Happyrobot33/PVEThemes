@@ -8,6 +8,7 @@ except ImportError:
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+pvemanagerlibLocation = "/usr/share/pve-manager/ext6/pvemanagerlib.js"
 #proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
@@ -171,8 +172,8 @@ def addButton(function, buttonName):
 
 def addZFSBar():
     print("Adding ZFS bar to the PVE web interface...")
-    #open the proxmoxlib.js file
-    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    #open the pvemanagerlib.js file
+    f = open(pvemanagerlibLocation, "r+", encoding="utf8")
     #read the file
     fileContents = f.read()
 

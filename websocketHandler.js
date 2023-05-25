@@ -21,7 +21,7 @@ async function sendShellCommand(requestStringVar) {
 				socket = new WebSocket(socketURL, 'binary');
 				socket.binaryType = 'arraybuffer';
 				socket.onopen = handleSocket;
-				socket.onclose = resolve(30);
+				socket.onclose = resolve;
 				socket.onerror = reject;
 			},
 			failure: function (msg) {

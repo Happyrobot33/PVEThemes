@@ -186,10 +186,11 @@ def addZFSBar():
     #find the items array
     itemLineStartSTR = "items: ["
     itemLineStart = define.find(itemLineStartSTR)
-    itemLineEnd = fileContents.find("""},
+    itemLineEndSTR = """},
     ],
 
-    """, itemLineStart)
+    """
+    itemLineEnd = fileContents.find(itemLineEndSTR, itemLineStart)
 
     #get the items array
     items = define[itemLineStart + len(itemLineStartSTR):itemLineEnd]
@@ -229,15 +230,14 @@ def addZFSBar():
 			me.up().getStore().add(record);
 			return Proxmox.Utils.render_node_size_usage(record.data);
 		},
-	},
-    """
+	},"""
 
     #add the item right under the memory bar item
     items = items[:memoryBarEnd + 2] + item + items[memoryBarEnd + 2:]
 
     print(items)
 
-    define = define[:itemLineStart + len(itemLineStartSTR)] + items + define[itemLineStart + len(itemLineStartSTR):]
+    define = define[:itemLineStart + len(itemLineStartSTR)] + items + define[itemLineEnd + len(itemLineEndSTR):]
 
     fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
 

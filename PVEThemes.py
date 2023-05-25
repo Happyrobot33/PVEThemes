@@ -177,20 +177,22 @@ def addZFSBar():
     #read the file
     fileContents = f.read()
 
-    defineLineStart = fileContents.find("Ext.define('PVE.node.StatusView', {")
+    defineLineStartSTR = "Ext.define('PVE.node.StatusView', {"
+    defineLineStart = fileContents.find(defineLineStartSTR)
     defineLineEnd = fileContents.find("});", defineLineStart)
     #get the define
     define = fileContents[defineLineStart:defineLineEnd]
 
     #find the items array
-    itemLineStart = define.find("items: [")
+    itemLineStartSTR = "items: ["
+    itemLineStart = define.find(itemLineStartSTR)
     itemLineEnd = fileContents.find("""},
     ],
 
     """, itemLineStart)
 
     #get the items array
-    items = define[itemLineStart + len(itemLineStart):itemLineEnd]
+    items = define[itemLineStart + len(itemLineStartSTR):itemLineEnd]
 
     #get the memory bar
     memoryBar = items.find("itemId: 'memory',")
@@ -233,7 +235,7 @@ def addZFSBar():
     #add the item right under the memory bar item
     items = items[:memoryBarEnd + 2] + item + items[memoryBarEnd + 2:]
 
-    define = define[:itemLineStart + 8] + items + define[itemLineStart + 8:]
+    define = define[:itemLineStart + len(itemLineStartSTR)] + items + define[itemLineStart + len(itemLineStartSTR):]
 
     fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
 

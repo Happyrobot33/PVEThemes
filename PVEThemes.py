@@ -183,14 +183,25 @@ def addZFSBar():
     define = fileContents[defineLineStart:defineLineEnd]
 
     #find the items array
-    itemLine = define.find("items: [")
+    itemLineStart = define.find("items: [")
+    itemLineEnd = fileContents.find("""},
+    ],
+
+    """, itemLineStart)
+
+    #get the items array
+    items = define[itemLineStart:itemLineEnd]
+
+    #get the memory bar
+    memoryBar = items.find("itemId: 'memory',")
+    memoryBarEnd = items.find("},", memoryBar)
 
     #define our item
     item = """
     {
 	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
 	    itemId: 'arc',
-	    title: "ARC size",
+	    title: "ZFS ARC size",
 		valueField: 'arc',
 	    maxField: 'arc',
 		renderer: function() {
@@ -219,8 +230,8 @@ def addZFSBar():
 	},
     """
 
-    #add the item right under the items array line
-    define = define[:itemLine + 9] + item + define[itemLine + 9:]
+    #add the item right under the memory bar item
+    define = define[:memoryBarEnd + 2] + item + define[memoryBarEnd + 2:]
 
     fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
 
@@ -240,11 +251,11 @@ def install():
     reinstallProxmoxWidgetToolkit()
     patchThemes()
     if buttonControl:
-        installButtonControls()
+        installUIOptions()
 
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
-def installButtonControls():
+def installUIOptions():
     print("Patching in websocket system...")
     #append websocketHandler.js to the end of proxmoxlib.js
     f = open(proxmoxLibLocation, "a", encoding="utf8")
@@ -256,6 +267,7 @@ def installButtonControls():
     addButton(uninstall, "Uninstall PVEThemes")
     addButton(install, "Reinstall PVEThemes")
     addButton(update, "Update PVEThemes")
+    addZFSBar()
 
 def uninstall():
     reinstallProxmoxWidgetToolkit()
@@ -295,8 +307,7 @@ def main():
     elif choice == "5":
         choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
         if choice2 == "y":
-            installButtonControls()
-            addZFSBar()
+            installUIOptions()
         else:
             main()
     elif choice == "6":

@@ -5,7 +5,7 @@ try:
     from sass import compile
     from calmjs.parse import es5
 except ImportError:
-    print("FATAL: libsass not installed but required")
+    print("FATAL: requirements missing, please run 'pip3 install -r requirements.txt'")
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"

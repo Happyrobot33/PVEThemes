@@ -16,7 +16,6 @@ async function sendShellCommand(requestStringVar) {
 			success: function (result) {
 				var port = encodeURIComponent(result.data.port);
 				ticket = result.data.ticket;
-				//https://aether.matthewherber.com:8007/api2/json/nodes/Aether/termproxy/vncwebsocket?port=8007&vncticket=
 				socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/api2/json' + url + '/vncwebsocket?port=' + port + '&vncticket=' + encodeURIComponent(ticket);
 
 				socket = new WebSocket(socketURL, 'binary');
@@ -53,8 +52,8 @@ function handleSocket() {
 			}, 500);
 		}
 
-		//check if we see ~/PVEThemes# in the console
-		if (answerString.includes(":~/PVEThemes#")) {
+		//check if we see an escape char in the console
+		if (answerString.includes("[?2004h")) {
 			if (messageSent) {
 				socket.close();
 			}

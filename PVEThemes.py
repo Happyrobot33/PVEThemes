@@ -4,10 +4,12 @@ try:
     import sass
     from sass import compile
 except ImportError:
-    print("FATAL: libsass not installed but required")
+    print("FATAL: requirements missing, please run 'pip3 install -r requirements.txt'")
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
+pvemanagerlibLocation = "/usr/share/pve-manager/js/pvemanagerlib.js"
+API2_Nodes = "/usr/share/perl5/PVE/API2/Nodes.pm"
 #proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
@@ -37,9 +39,9 @@ def appendThemeMap(themeFileName, themeTitle):
 def reinstallProxmoxWidgetToolkit():
     #if on linux, we should be on a proxmox machine, so apt reinstall proxmox-widget-toolkit to get the original proxmoxlib.js file
     if os.name == "posix":
-        print("Reinstalling proxmox-widget-toolkit...")
+        print("Reinstalling proxmox source files...")
         print("----------APT OUTPUT----------")
-        os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit")
+        os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit pve-manager")
         print("------------------------------")
 
 def compileSassThemes():
@@ -152,22 +154,148 @@ def addButton(function, buttonName):
     #add our button right under the buttons array line
     themeEditWindow = themeEditWindow[:buttonsLine + 9] + button + themeEditWindow[buttonsLine + 9:]
 
-    #print(themeEditWindow)
-
-    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
-    #print(themeEditWindow)
-
     #replace the fileContents with the new themeEditWindow
     fileContents = fileContents.replace(fileContents[themeEditWindowLine:themeEditWindowEnd], themeEditWindow)
-
-    #print the area around the themeEditWindow variable
-    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
 
     #write to the file
     f.seek(0)
     f.write(fileContents)
     f.truncate()
     f.close()
+
+def removeSubscriptionNotice():
+    print("Removing subscription notice from the PVE web interface...")
+    #load the proxmoxlib.js file
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    fileContents = f.read()
+
+    #find the no sub text
+    noSub = fileContents.find("title: gettext('No valid subscription'),")
+
+    previousLine = fileContents.rfind("\n", 0, noSub)
+    previousLineStart = fileContents.rfind("\n", 0, previousLine)
+
+    #Find the Ext.Msg.show({ in the previous line
+    msgShow = fileContents.rfind("Ext.Msg.show({", previousLineStart, previousLine)
+    
+    #if the no sub text is not found, then the subscription notice has already been removed
+    if msgShow == -1:
+        print("Subscription notice already removed...")
+        return
+
+    #replace the Ext.Msg.show({ above noSub with void({
+    fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 14:]
+
+    #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
+def addZFSBar():
+    print("Adding ZFS bar to the PVE web interface...")
+    #open the pvemanagerlib.js file
+    f = open(pvemanagerlibLocation, "r+", encoding="utf8")
+    #read the file
+    fileContents = f.read()
+
+    defineLineStartSTR = "Ext.define('PVE.node.StatusView', {"
+    defineLineStart = fileContents.find(defineLineStartSTR)
+    defineLineEnd = fileContents.find("});", defineLineStart)
+    #get the define
+    define = fileContents[defineLineStart:defineLineEnd]
+
+    #find the items array
+    itemLineStartSTR = "items: ["
+    itemLineStart = define.find(itemLineStartSTR)
+    itemLineEndSTR = """},
+    ],
+
+    """
+    itemLineEnd = fileContents.find(itemLineEndSTR, itemLineStart)
+
+    #get the items array
+    items = define[itemLineStart + len(itemLineStartSTR):itemLineEnd]
+
+    #get the memory bar
+    memoryBar = items.find("itemId: 'memory',")
+    memoryBarEnd = items.find("},", memoryBar)
+
+    #define our item
+    item = """
+    {
+	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
+	    itemId: 'arc',
+	    title: "ZFS ARC size",
+		valueField: 'arc',
+	    maxField: 'arc',
+		renderer: Proxmox.Utils.render_node_size_usage,
+	},"""
+
+    #add the item right under the memory bar item
+    items = items[:memoryBarEnd + 2] + item + items[memoryBarEnd + 2:]
+
+    define = define[:itemLineStart + len(itemLineStartSTR)] + items + define[itemLineEnd + len(itemLineEndSTR):]
+
+    fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
+
+    #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
+    #modify the api to get the ZFS ARC size
+    f = open(API2_Nodes, "r+", encoding="utf8")
+    fileContents = f.read()
+
+    resSTR = "my $res = {\n\t    uptime => 0,\n\t    idle => 0,\n\t};"
+
+    #find the line after resSTR
+    #resLine = fileContents.find(resSTR) + len(resSTR)
+
+    #print(fileContents[resLine - 100:resLine + 100])
+
+    appendStr = """
+        open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
+
+        my $arcused = 0;
+        my $arctotal = 0;
+
+        while (my $line = <$fh>) {
+            if ($line =~ /^size/) {
+                my @fields = split(' ', $line);
+                $arcused = $fields[2];
+            }
+            elsif ($line =~ /^c_max/) {
+                my @fields = split(' ', $line);
+                $arctotal = $fields[2];
+            }
+        }
+        close($fh);
+
+        $res->{arc} = {
+            used => $arcused,
+            total => $arctotal,
+        };
+
+        my $meminfoC = PVE::ProcFSTools::read_meminfo();
+        $res->{memoryreal} = {
+            free => $meminfoC->{memfree} - $arcused,
+            total => $meminfoC->{memtotal},
+            used => $meminfoC->{memused} - $arcused,
+        };
+    """
+
+    fileContents = fileContents.replace(resSTR, resSTR + appendStr)
+
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
+    #reload the api service
+    os.system("pveproxy restart")
 
 def install():
     compileSassThemes()
@@ -179,11 +307,11 @@ def install():
     reinstallProxmoxWidgetToolkit()
     patchThemes()
     if buttonControl:
-        installButtonControls()
+        installUIOptions()
 
     print("Done! Clear your browser cache and refresh the page to see the new themes.")
 
-def installButtonControls():
+def installUIOptions():
     print("Patching in websocket system...")
     #append websocketHandler.js to the end of proxmoxlib.js
     f = open(proxmoxLibLocation, "a", encoding="utf8")
@@ -195,6 +323,8 @@ def installButtonControls():
     addButton(uninstall, "Uninstall PVEThemes")
     addButton(install, "Reinstall PVEThemes")
     addButton(update, "Update PVEThemes")
+    addZFSBar()
+    removeSubscriptionNotice()
 
 def uninstall():
     reinstallProxmoxWidgetToolkit()
@@ -216,8 +346,8 @@ def main():
     print("2. install")
     print("3. update")
     print("4. compile sass themes")
-    print("5. enable UI control")
-    print("6. disable UI control")
+    print("5. enable UI tweaks")
+    print("6. disable UI tweaks")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -232,9 +362,9 @@ def main():
     elif choice == "4":
         compileSassThemes()
     elif choice == "5":
-        choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
+        choice2 = input("Are you sure you want to enable the UI tweaks? This will add buttons to your UI to update the theme system, but will also modify more files to accomplish this, possibly lowering stability (y/n): ")
         if choice2 == "y":
-            installButtonControls()
+            installUIOptions()
         else:
             main()
     elif choice == "6":

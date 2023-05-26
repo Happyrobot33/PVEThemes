@@ -1,3 +1,4 @@
 __pycache__
 *.css
 proxmoxlib.js
+pvemanagerlib.js

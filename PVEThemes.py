@@ -308,7 +308,7 @@ def testing():
 
     program = es5(fileContents, with_comments=True)
 
-    print(repr(program))
+    #print(repr(program))
     print(program)
 
 def main():

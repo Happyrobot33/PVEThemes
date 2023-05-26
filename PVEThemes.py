@@ -228,7 +228,7 @@ def addZFSBar():
     print(fileContents[resLine - 100:resLine + 100])
 
     appendStr = """
-    open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
+        open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
 
         my $arcused = 0;
         my $arctotal = 0;

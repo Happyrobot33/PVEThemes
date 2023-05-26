@@ -3,7 +3,6 @@ import sys
 try:
     import sass
     from sass import compile
-    from calmjs.parse import es5
 except ImportError:
     print("FATAL: requirements missing, please run 'pip3 install -r requirements.txt'")
     exit(1)
@@ -299,17 +298,6 @@ def update():
     os.system("git pull --quiet")
     #exit and run self
     os.system("python3 PVEThemes.py install")
-
-def testing():
-    #load the file
-    f = open(proxmoxLibLocation, "r", encoding="utf8")
-    fileContents = f.read()
-    f.close()
-
-    program = es5(fileContents, with_comments=True)
-
-    #print(repr(program))
-    print(program)
 
 def main():
     print("PVEThemes Installer")

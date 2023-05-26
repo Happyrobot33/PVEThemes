@@ -9,6 +9,7 @@ except ImportError:
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"
 pvemanagerlibLocation = "/usr/share/pve-manager/js/pvemanagerlib.js"
+API2_Nodes = "/usr/share/perl5/PVE/API2/Nodes.pm"
 #proxmoxLibLocation = "proxmoxlib.js"
 
 def appendThemeMap(themeFileName, themeTitle):
@@ -153,16 +154,8 @@ def addButton(function, buttonName):
     #add our button right under the buttons array line
     themeEditWindow = themeEditWindow[:buttonsLine + 9] + button + themeEditWindow[buttonsLine + 9:]
 
-    #print(themeEditWindow)
-
-    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
-    #print(themeEditWindow)
-
     #replace the fileContents with the new themeEditWindow
     fileContents = fileContents.replace(fileContents[themeEditWindowLine:themeEditWindowEnd], themeEditWindow)
-
-    #print the area around the themeEditWindow variable
-    #print(fileContents[themeEditWindowLine:themeEditWindowEnd])
 
     #write to the file
     f.seek(0)
@@ -207,29 +200,7 @@ def addZFSBar():
 	    title: "ZFS ARC size",
 		valueField: 'arc',
 	    maxField: 'arc',
-		renderer: function() {
-			let me = this;
-
-			//create arc variables
-			arc_used = 12355718144;
-			arc_total = 62355718144;
-
-			this.setData({
-				usage: arc_used / arc_total,
-			});
-
-			//create arc record
-			record = Ext.create('KeyValue', 
-				{
-					key: "arc",
-					used: arc_used,
-					total: arc_total,
-				},
-			);
-			//add arc to store
-			me.up().getStore().add(record);
-			return Proxmox.Utils.render_node_size_usage(record.data);
-		},
+		renderer: Proxmox.Utils.render_node_size_usage,
 	},"""
 
     #add the item right under the memory bar item
@@ -240,6 +211,45 @@ def addZFSBar():
     fileContents = fileContents.replace(fileContents[defineLineStart:defineLineEnd], define)
 
     #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
+    #modify the api to get the ZFS ARC size
+    f = open(API2_Nodes, "r+", encoding="utf8")
+    fileContents = f.read()
+
+    resSTR = """
+    my $res = {
+            uptime => 0,
+            idle => 0,
+        };"""
+
+    appendStr = """
+    open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
+
+        my $arcused = 0;
+        my $arctotal = 0;
+
+        while (my $line = <$fh>) {
+            if ($line =~ /^size/) {
+                $arcused = split(' ', $line)[2];
+            }
+            elsif ($line =~ /^c_max/) {
+                $arctotal = split(' ', $line)[2];
+            }
+        }
+        close($fh);
+
+        $res->{arc} = {
+            used => $arcused,
+            total => $arctotal,
+        };
+    """
+
+    fileContents = fileContents.replace(resSTR, resSTR + appendStr)
+
     f.seek(0)
     f.write(fileContents)
     f.truncate()

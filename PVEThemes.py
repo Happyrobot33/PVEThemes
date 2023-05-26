@@ -222,9 +222,9 @@ def addZFSBar():
 
     resSTR = """
     my $res = {
-            uptime => 0,
-            idle => 0,
-        };"""
+        uptime => 0,
+        idle => 0,
+    };"""
 
     appendStr = """
     open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";

@@ -258,11 +258,11 @@ def addZFSBar():
             total => $arctotal,
         };
 
-        my $meminfo = PVE::ProcFSTools::read_meminfo();
+        my $meminfoC = PVE::ProcFSTools::read_meminfo();
         $res->{memoryreal} = {
-            free => $meminfo->{memfree} - $arcused,
-            total => $meminfo->{memtotal},
-            used => $meminfo->{memused} - $arcused,
+            free => $meminfoC->{memfree} - $arcused,
+            total => $meminfoC->{memtotal},
+            used => $meminfoC->{memused} - $arcused,
         };
     """
 

@@ -201,6 +201,14 @@ def addZFSBar():
 		valueField: 'arc',
 	    maxField: 'arc',
 		renderer: Proxmox.Utils.render_node_size_usage,
+	},
+    {
+	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
+	    itemId: 'memoryreal',
+	    title: "Real RAM usage",
+		valueField: 'memoryreal',
+	    maxField: 'memoryreal',
+		renderer: Proxmox.Utils.render_node_size_usage,
 	},"""
 
     #add the item right under the memory bar item
@@ -248,6 +256,13 @@ def addZFSBar():
         $res->{arc} = {
             used => $arcused,
             total => $arctotal,
+        };
+
+        my $meminfo = PVE::ProcFSTools::read_meminfo();
+        $res->{memoryreal} = {
+            free => $meminfo->{memfree} - $arcused,
+            total => $meminfo->{memtotal},
+            used => $meminfo->{memused} - $arcused,
         };
     """
 
@@ -309,8 +324,8 @@ def main():
     print("2. install")
     print("3. update")
     print("4. compile sass themes")
-    print("5. enable UI control")
-    print("6. disable UI control")
+    print("5. enable UI tweaks")
+    print("6. disable UI tweaks")
     print("-------------------")
     choice = input("Enter a number: ")
 
@@ -325,7 +340,7 @@ def main():
     elif choice == "4":
         compileSassThemes()
     elif choice == "5":
-        choice2 = input("Are you sure you want to enable the UI control? This will add buttons to your UI to update the theme system, but will also open up the ability for javascript to run shell commands on your host (y/n): ")
+        choice2 = input("Are you sure you want to enable the UI tweaks? This will add buttons to your UI to update the theme system, but will also modify more files to accomplish this, possibly lowering stability (y/n): ")
         if choice2 == "y":
             installUIOptions()
         else:

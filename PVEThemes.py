@@ -223,9 +223,9 @@ def addZFSBar():
     resSTR = "my $res = {\n\t    uptime => 0,\n\t    idle => 0,\n\t};"
 
     #find the line after resSTR
-    resLine = fileContents.find(resSTR) + len(resSTR)
+    #resLine = fileContents.find(resSTR) + len(resSTR)
 
-    print(fileContents[resLine - 100:resLine + 100])
+    #print(fileContents[resLine - 100:resLine + 100])
 
     appendStr = """
         open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
@@ -250,12 +250,12 @@ def addZFSBar():
     """
 
     fileContents = fileContents.replace(resSTR, resSTR + appendStr)
-    print(fileContents[resLine - 100:resLine + 100])
+    #print(fileContents[resLine - 100:resLine + 100])
     #print(resSTR + appendStr)
 
-    #f.seek(0)
-    #f.write(fileContents)
-    #f.truncate()
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
     f.close()
 
 def install():

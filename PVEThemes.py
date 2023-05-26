@@ -39,7 +39,7 @@ def appendThemeMap(themeFileName, themeTitle):
 def reinstallProxmoxWidgetToolkit():
     #if on linux, we should be on a proxmox machine, so apt reinstall proxmox-widget-toolkit to get the original proxmoxlib.js file
     if os.name == "posix":
-        print("Reinstalling proxmox-widget-toolkit...")
+        print("Reinstalling proxmox source files...")
         print("----------APT OUTPUT----------")
         os.system("apt -qq -o=Dpkg::Use-Pty=0 reinstall proxmox-widget-toolkit pve-manager")
         print("------------------------------")
@@ -163,6 +163,24 @@ def addButton(function, buttonName):
     f.truncate()
     f.close()
 
+def removeSubscriptionNotice():
+    print("Removing subscription notice from the PVE web interface...")
+    #load the proxmoxlib.js file
+    f = open(proxmoxLibLocation, "r+", encoding="utf8")
+    fileContents = f.read()
+
+    #find the msg show
+    msgShow = fileContents.find("Ext.Msg.show({\n  title: gettext('No valid subscription'),")
+
+    #replace the Ext.Msg.show({ with void({
+    fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 14:]
+
+    #write to the file
+    f.seek(0)
+    f.write(fileContents)
+    f.truncate()
+    f.close()
+
 def addZFSBar():
     print("Adding ZFS bar to the PVE web interface...")
     #open the pvemanagerlib.js file
@@ -200,14 +218,6 @@ def addZFSBar():
 	    title: "ZFS ARC size",
 		valueField: 'arc',
 	    maxField: 'arc',
-		renderer: Proxmox.Utils.render_node_size_usage,
-	},
-    {
-	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
-	    itemId: 'memoryreal',
-	    title: "Actual RAM usage",
-		valueField: 'memoryreal',
-	    maxField: 'memoryreal',
 		renderer: Proxmox.Utils.render_node_size_usage,
 	},"""
 
@@ -303,6 +313,7 @@ def installUIOptions():
     addButton(install, "Reinstall PVEThemes")
     addButton(update, "Update PVEThemes")
     addZFSBar()
+    removeSubscriptionNotice()
 
 def uninstall():
     reinstallProxmoxWidgetToolkit()

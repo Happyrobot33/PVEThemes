@@ -1,5 +1,11 @@
 Original idea and SASS files from https://github.com/Weilbyte/PVEDiscordDark
 
+## UI Tweaks
+there is a few additional tweaks that can be enabled using the script. These are:
+- Hide the "no valid subscription" warning
+- Add update buttons to the theme selector panel itself
+- Add a progress bar to show how much ram ZFS Cache is using
+
 ## Installation
 Run the following commands in your PVE instance:
 ```bash

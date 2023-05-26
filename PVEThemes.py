@@ -302,7 +302,7 @@ def update():
 
 def testing():
     #load the file
-    f = open(pvemanagerlibLocation, "r", encoding="utf8")
+    f = open(proxmoxLibLocation, "r", encoding="utf8")
     fileContents = f.read()
     f.close()
 

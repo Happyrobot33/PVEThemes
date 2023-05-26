@@ -175,6 +175,8 @@ def removeSubscriptionNotice():
     #Find the line above the noSub text
     msgShow = fileContents.rfind("\n", 0, noSub)
 
+    print(msgShow)
+
     #replace the Ext.Msg.show({ above noSub with void({
     fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 15:]
 

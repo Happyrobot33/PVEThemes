@@ -228,7 +228,7 @@ def addZFSBar():
     #find the line after resSTR
     resLine = fileContents.find(resSTR) + len(resSTR)
 
-    print(resLine)
+    print(fileContents[resLine - 100:resLine + 100])
 
     appendStr = """
     open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
@@ -253,7 +253,7 @@ def addZFSBar():
     """
 
     fileContents = fileContents.replace(resSTR, resSTR + appendStr)
-    print(resSTR + appendStr)
+    #print(resSTR + appendStr)
 
     f.seek(0)
     f.write(fileContents)

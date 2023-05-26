@@ -220,15 +220,12 @@ def addZFSBar():
     f = open(API2_Nodes, "r+", encoding="utf8")
     fileContents = f.read()
 
-    resSTR = """        my $res = {
-            uptime => 0,
-            idle => 0,
-        };"""
+    resSTR = "my $res = {\n\t    uptime => 0,\n\t    idle => 0,\n\t},"
 
     #find the line after resSTR
-    resLine = fileContents.find("my $res = {\n\t    uptime => 0,\n\t") + len(resSTR)
+    resLine = fileContents.find(resSTR) + len(resSTR)
 
-    print(fileContents[resLine - 100:resLine + 100])
+    #print(fileContents[resLine - 100:resLine + 100])
 
     appendStr = """
     open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
@@ -253,6 +250,7 @@ def addZFSBar():
     """
 
     fileContents = fileContents.replace(resSTR, resSTR + appendStr)
+    print(fileContents[resLine - 100:resLine + 100])
     #print(resSTR + appendStr)
 
     #f.seek(0)

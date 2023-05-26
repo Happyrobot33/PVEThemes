@@ -220,7 +220,7 @@ def addZFSBar():
     f = open(API2_Nodes, "r+", encoding="utf8")
     fileContents = f.read()
 
-    resSTR = "my $res = {\n\t    uptime => 0,\n\t    idle => 0,\n\t},"
+    resSTR = "my $res = {\n\t    uptime => 0,\n\t    idle => 0,\n\t};"
 
     #find the line after resSTR
     resLine = fileContents.find(resSTR) + len(resSTR)

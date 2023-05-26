@@ -3,6 +3,7 @@ import sys
 try:
     import sass
     from sass import compile
+    from calmjs.parse import es5
 except ImportError:
     print("FATAL: libsass not installed but required")
     exit(1)
@@ -252,8 +253,6 @@ def addZFSBar():
     """
 
     fileContents = fileContents.replace(resSTR, resSTR + appendStr)
-    #print(fileContents[resLine - 100:resLine + 100])
-    #print(resSTR + appendStr)
 
     f.seek(0)
     f.write(fileContents)
@@ -300,6 +299,17 @@ def update():
     os.system("git pull --quiet")
     #exit and run self
     os.system("python3 PVEThemes.py install")
+
+def testing():
+    #load the file
+    f = open(pvemanagerlibLocation, "r", encoding="utf8")
+    fileContents = f.read()
+    f.close()
+
+    program = es5(fileContents, with_comments=True)
+
+    print(repr(program))
+    print(program)
 
 def main():
     print("PVEThemes Installer")

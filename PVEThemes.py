@@ -169,11 +169,11 @@ def removeSubscriptionNotice():
     f = open(proxmoxLibLocation, "r+", encoding="utf8")
     fileContents = f.read()
 
-    #find the msg show
-    msgShow = fileContents.find("Ext.Msg.show({\n  title: gettext('No valid subscription'),")
+    #find the no sub text
+    noSub = fileContents.find("title: gettext('No valid subscription'),")
 
-    #replace the Ext.Msg.show({ with void({
-    fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 14:]
+    #replace the line above noSub with void({
+    fileContents = fileContents[:noSub - 1] + "void({" + fileContents[noSub - 1:]
 
     #write to the file
     f.seek(0)

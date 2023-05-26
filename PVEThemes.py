@@ -220,10 +220,10 @@ def addZFSBar():
     f = open(API2_Nodes, "r+", encoding="utf8")
     fileContents = f.read()
 
-    resSTR = """my $res = {
-    uptime => 0,
-    idle => 0,
-};"""
+    resSTR = """        my $res = {
+            uptime => 0,
+            idle => 0,
+        };"""
 
     appendStr = """
     open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";

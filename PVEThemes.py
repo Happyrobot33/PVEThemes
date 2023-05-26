@@ -249,6 +249,7 @@ def addZFSBar():
     """
 
     fileContents = fileContents.replace(resSTR, resSTR + appendStr)
+    print(resSTR + appendStr)
 
     f.seek(0)
     f.write(fileContents)

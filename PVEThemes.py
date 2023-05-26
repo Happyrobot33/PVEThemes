@@ -172,8 +172,11 @@ def removeSubscriptionNotice():
     #find the no sub text
     noSub = fileContents.find("title: gettext('No valid subscription'),")
 
-    #replace the line above noSub with void({
-    fileContents = fileContents[:noSub - 1] + "void({" + fileContents[noSub - 1:]
+    #Find the line above the noSub text
+    msgShow = fileContents.rfind("\n", 0, noSub)
+
+    #replace the Ext.Msg.show({ above noSub with void({
+    fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 15:]
 
     #write to the file
     f.seek(0)

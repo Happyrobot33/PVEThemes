@@ -205,7 +205,7 @@ def addZFSBar():
     {
 	    iconCls: 'fa fa-fw pmx-itype-icon-memory pmx-icon',
 	    itemId: 'memoryreal',
-	    title: "Real RAM usage",
+	    title: "Actual RAM usage",
 		valueField: 'memoryreal',
 	    maxField: 'memoryreal',
 		renderer: Proxmox.Utils.render_node_size_usage,

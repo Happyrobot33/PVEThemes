@@ -225,6 +225,11 @@ def addZFSBar():
             idle => 0,
         };"""
 
+    #find the line after resSTR
+    resLine = fileContents.find(resSTR) + len(resSTR)
+
+    print(resLine)
+
     appendStr = """
     open(my $fh, '<', '/proc/spl/kstat/zfs/arcstats') or die "Failed to open file: $!";
 

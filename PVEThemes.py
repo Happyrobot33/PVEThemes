@@ -236,11 +236,11 @@ def addZFSBar():
         while (my $line = <$fh>) {
             if ($line =~ /^size/) {
                 my @fields = split(' ', $line);
-                $arcused = @fields[2];
+                $arcused = $fields[2];
             }
             elsif ($line =~ /^c_max/) {
                 my @fields = split(' ', $line);
-                $arctotal = @fields[2];
+                $arctotal = $fields[2];
             }
         }
         close($fh);
@@ -259,6 +259,9 @@ def addZFSBar():
     f.write(fileContents)
     f.truncate()
     f.close()
+
+    #reload the api service
+    os.system("pveproxy restart")
 
 def install():
     compileSassThemes()

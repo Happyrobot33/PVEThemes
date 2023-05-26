@@ -172,13 +172,16 @@ def removeSubscriptionNotice():
     #find the no sub text
     noSub = fileContents.find("title: gettext('No valid subscription'),")
 
+    previousLine = fileContents.rfind("\n", 0, noSub)
+    previousLineStart = fileContents.rfind("\n", 0, previousLine)
+
+    #Find the Ext.Msg.show({ in the previous line
+    msgShow = fileContents.rfind("Ext.Msg.show({", previousLineStart, previousLine)
+    
     #if the no sub text is not found, then the subscription notice has already been removed
-    if noSub == -1:
+    if msgShow == -1:
         print("Subscription notice already removed...")
         return
-
-    #Find the line above the noSub text
-    msgShow = fileContents.rfind("Ext.Msg.show({", 0, noSub)
 
     #replace the Ext.Msg.show({ above noSub with void({
     fileContents = fileContents[:msgShow] + "void({" + fileContents[msgShow + 14:]

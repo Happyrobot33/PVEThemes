@@ -235,10 +235,12 @@ def addZFSBar():
 
         while (my $line = <$fh>) {
             if ($line =~ /^size/) {
-                $arcused = split(' ', $line)[2];
+                my @fields = split(' ', $line);
+                $arcused = @fields[2];
             }
             elsif ($line =~ /^c_max/) {
-                $arctotal = split(' ', $line)[2];
+                my @fields = split(' ', $line);
+                $arctotal = @fields[2];
             }
         }
         close($fh);

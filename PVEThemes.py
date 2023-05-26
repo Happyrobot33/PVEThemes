@@ -226,7 +226,7 @@ def addZFSBar():
         };"""
 
     #find the line after resSTR
-    resLine = fileContents.find("my $res = {") + len(resSTR)
+    resLine = fileContents.find("my $res = {\n\t") + len(resSTR)
 
     print(fileContents[resLine - 100:resLine + 100])
 

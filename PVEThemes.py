@@ -230,20 +230,7 @@ def addZFSBar():
 	    title: "ZFS ARC size",
 		valueField: 'arc',
 	    maxField: 'arc',
-		renderer: function(record) {
-			//check if the record exists
-			if (record.used) {
-				return Proxmox.Utils.render_node_size_usage(record);
-			} else {
-				localRecord = {
-					used: 0,
-					total: 100,
-				};
-				//make invisible if the record does not exist
-				this.title = "ZFS Arc size (not available)";
-				return Proxmox.Utils.render_node_size_usage(localRecord);
-			}
-		},
+		renderer: Proxmox.Utils.render_node_size_usage,
 	},"""
 
     #add the item right under the memory bar item

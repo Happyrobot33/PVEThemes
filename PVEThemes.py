@@ -143,7 +143,7 @@ def addButton(function, buttonName):
         xtype: 'button',
 	    text: gettext('buttonName'),
 	    handler: 'functionName',
-        margin: 1,
+        margin: 2,
 	},
     """
 

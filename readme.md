@@ -1,5 +1,7 @@
 Original idea and SASS files from https://github.com/Weilbyte/PVEDiscordDark
 
+# For Proxmox 7.4 and greater only!
+
 ## UI Tweaks
 there is a few additional tweaks that can be enabled using the script. These are:
 - Hide the "no valid subscription" warning

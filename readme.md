@@ -24,10 +24,18 @@ Or this one-liner:
 git clone https://github.com/Happyrobot33/PVEThemes && cd PVEThemes && chmod +x install.sh && ./install.sh
 ```
 
-if you have ran the install.sh script before, you can instead just directly run the python script
+if you have ran the install.sh script before, you can instead just run the run.sh script
 ```bash
-python3 PVEThemes.py
+./run.sh
 ```
+
+if you are running into issues updating the script, run the following commands:
+```bash
+git pull
+chmod +x install.sh
+./install.sh
+```
+This should hopefully fix any issues.
 
 ![avali](./themes/previews/theme-avali.png)
 ![discord dark](./themes/previews/theme-discord-dark.png)

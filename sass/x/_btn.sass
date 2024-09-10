@@ -1,5 +1,5 @@
 .x-btn
-	background: $accent
+	background: var(--accent)
 	border-width: 0
 	&.x-unselectable.x-box-item
 		&.x-toolbar-item.x-btn-default-toolbar-small
@@ -16,14 +16,14 @@
 
 .x-keyboard-mode .x-btn-focus, .x-btn-focus
 	&.x-btn-default-toolbar-small
-		background-color: $accent
+		background-color: var(--accent)
 
 .x-btn-inner
-	color: $button_text
+	color: var(----button-text)
 	&.x-btn-inner-default-small
-		color: $button_text
+		color: var(----button-text)
 	&.x-btn-inner-default-toolbar-small
-		color: $button_text
+		color: var(----button-text)
 
 .x-btn-disabled
 	background-image: none
@@ -35,9 +35,9 @@
 			&.fa-undo, &.fa-terminal, &.fa-send-o, &.fa-fw.fa-ellipsis-v, &.fa-refresh
 				color: var(--text)
 			&.fa-play
-				color: $green
+				color: var(--green)
 			&.fa-power-off
-				color: $redlight
+				color: var(--redlight)
 		&.x-btn-icon-el-default-toolbar-small.fa.fa-question-circle
 			color: var(--text)
 	&.x-btn-icon-el-default-small.fa
@@ -51,4 +51,4 @@
 	//background-image: url('/pve2/images/dd_default-toolbar-small-s-arrow.png')
 
 .fa-gear:before, .fa-cog:before
-	color: $button_text
+	color: var(----button-text)

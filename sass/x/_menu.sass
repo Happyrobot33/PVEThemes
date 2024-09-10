@@ -2,12 +2,12 @@
 	background-color: adjust-color($accent, $saturation: -30%)
 
 .x-menu-item
-	background: $accent
+	background: var(--accent)
 	border-style: none
 	border-width: 0
 
 .x-menu-default
-	background: $accent
+	background: var(--accent)
 	border: 1px solid var(--background-accent)
 
 .x-menu-item-text
@@ -23,16 +23,16 @@
 		&.fa-building, &.fa-folder, &.fa-floppy-o, &.fa-file-o, &.fa-clone, &.fa-send-o, &.fa-group, &.fa-user, &.fa-user-o, &.fa-bar-chart, &.fa-address-book-o, &.fa-clock-o, &.fa-shield, &.fa-file-text-o, &.fa-yahoo
 			color: var(--text)
 		&.fa-play
-			color: $green
+			color: var(--green)
 		&.fa-stop, &.fa-power-off
-			color: $redlight
+			color: var(--redlight)
 		&.fa-pause, &.fa-download
-			color: $yellow
+			color: var(--yellow)
 
 	&.fa-heartbeat, &.fa-cube, &.fa-terminal, &.fa-desktop, &.fa-trash-o
 		color: var(--text)
 	&.fa-stop
-		color: $redlight
+		color: var(--redlight)
 
 .x-menu-item-default.x-menu-item-separator
 	height: 0
@@ -45,7 +45,7 @@ div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"],
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"], // PVE 7.0
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] // PVE 7.0
-	background: $background
+	background: var(--background)
 
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[class*="x-menu-item-focus"],
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[class*="x-menu-item-focus"],

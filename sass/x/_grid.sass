@@ -3,21 +3,21 @@
 	color: var(--text)
 
 .x-grid-cell-rowbody
-	background: $background
+	background: var(--background)
 	color: var(--text)
 
 .x-grid-item
-	background: $background
+	background: var(--background)
 	border-width: 0 !important
 	&:hover, &.x-grid-item-selected
-		background-color: $input_background
+		background-color: var(--input-background)
 
 .x-grid-item-alt
-	background: $background
+	background: var(--background)
 	border-width: 0 !important
 
 .x-grid-header-ct
-	background: $background
+	background: var(--background)
 	border-width: 0 !important
 
 .proxmox-apt-repos .x-grid-group-title, .x-grid-group-title
@@ -35,10 +35,10 @@
 
 .x-grid-icon-custom:after
 	//If you use compass, instead of the line below you could use + text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-	text-shadow: 0 0 0 $background
+	text-shadow: 0 0 0 var(--background)
 
 .x-grid-icon-custom.lock-migrate:after
-	color: $yellow
+	color: var(--yellow)
 
 .x-grid-empty
 	background-color: inherit
@@ -46,4 +46,4 @@
 
 .x-grid-row-summary .x-grid-cell, .x-grid-row-summary .x-grid-rowwrap, .x-grid-row-summary .x-grid-cell-rowbody
 	background-color: var(--background-accent) !important
-	border-color: $background
+	border-color: var(--background)

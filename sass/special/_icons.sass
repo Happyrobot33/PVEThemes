@@ -108,13 +108,13 @@
 	@include recolor($text)
 
 .fa-sign-out:before
-	color: $red
+	color: var(--red)
 
 .fa-language:before
 	color: var(--text)
 
 .fa-building.online
-	color: $accent !important
+	color: var(--accent) !important
 
 .fa-window-restore:before
 	color: var(--text)
@@ -123,13 +123,13 @@
 	&.fa-database
 		color: adjust-color($accent, $lightness: -20%)
 		&.available
-			color: $accent
+			color: var(--accent)
 	&.fa-desktop
-		color: $accent
+		color: var(--accent)
 		&.stopped
 			color: adjust-color($accent, $lightness: -20%)
 	&.fa-cube
-		color: $accent
+		color: var(--accent)
 		&.stopped
 			color: adjust-color($accent, $lightness: -20%)
 	&.fa-file-o
@@ -142,17 +142,17 @@
 	&.fa-tags
 		color: adjust-color($accent, $lightness: -20%)
 	&.fa-th
-		color: $accent !important
+		color: var(--accent) !important
 
 .lxc:after
 	background: transparent !important
-	color: $accent
-	text-shadow: 0 0 0 var(--background)!important
+	color: var(--accent)
+	text-shadow: 0 0 0 var(--background) !important
 
 .qemu:after
 	background: transparent !important
-	color: $accent
-	text-shadow: 0 0 0 var(--background)!important
+	color: var(--accent)
+	text-shadow: 0 0 0 var(--background) !important
 
 .fa-network-wired:before
 	//background-image: url('/pve2/images/dd_icon-fa-network-wired.svg')

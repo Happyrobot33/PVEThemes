@@ -48,8 +48,8 @@
     --red: #{$red};
     --redlight: #{$redlight};
 
-    --pwt-panel-background: #{var(--background-accent)};
-    --pwt-text-color: #{var(--text)};
+    --pwt-panel-background: #{$background_accent};
+    --pwt-text-color: #{$text};
     --pwt-gauge-default: #{$green};
     --pwt-gauge-back: #{$background};
     --pwt-gauge-warn: #{$yellow};

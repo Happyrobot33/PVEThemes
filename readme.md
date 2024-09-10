@@ -26,6 +26,7 @@ git clone https://github.com/Happyrobot33/PVEThemes && cd PVEThemes && chmod +x 
 
 if you have ran the install.sh script before, you can instead just run the run.sh script
 ```bash
+chmod +x run.sh
 ./run.sh
 ```
 

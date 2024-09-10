@@ -4,7 +4,7 @@
 .pve-itype-icon-processor::before, .pmx-itype-icon-processor::before, .pve-itype-icon-cpu::before
 	background-image: url(../images/icon-cpu.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .pve-itype-icon-memory, .pmx-itype-icon-memory
 	//background-image: url('/pve2/images/dd_icon-ram.png')
@@ -13,7 +13,7 @@
 .pve-itype-icon-memory::before, .pmx-itype-icon-memory::before
 	background-image: url(/pve2/images/icon-memory.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .pve-itype-icon-storage
 	//background-image: url('/pve2/images/dd_icon-hdd.png')
@@ -34,7 +34,7 @@
 .pve-itype-icon-cdrom::before
 	background-image: url(/pve2/images/icon-cd-drive.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 //.pve-itype-treelist-item-icon-cdrom
 //	content: ' '
@@ -55,7 +55,7 @@
 .pve-itype-icon-pci::before
 	background-image: url(/pve2/images/icon-pci.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .pve-itype-icon-usb
 	//background-image: url('/pve2/images/dd_icon-usb.png')
@@ -67,7 +67,7 @@
 .pve-itype-icon-serial::before
 	background-image: url(/pve2/images/icon-serial.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .pve-itype-icon-cloud
 	//background-image: url('/pve2/images/dd_icon-cloud.png')
@@ -79,7 +79,7 @@
 .pve-itype-icon-die::before
 	background-image: url(/pve2/images/icon-die.svg)
 	@include iconPosition()
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .fa-exchange:before
 	color: var(--text)
@@ -105,7 +105,7 @@
 
 .fa-ceph:before
 	background-image: url(/pve2/images/logo-ceph.png)
-	@include recolor(var(--text))
+	@include recolor($text)
 
 .fa-sign-out:before
 	color: $red

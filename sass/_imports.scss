@@ -37,8 +37,13 @@
 @import './sass/special/_charts.sass';
 
 :root {
-    --pwt-panel-background: #{$background_accent};
-    --pwt-text-color: #{$text};
+    --text: #{$text};
+    --background: #{$background};
+    --background-accent: #{$background_accent};
+    --input-background: #{$input_background};
+
+    --pwt-panel-background: #{var(--background-accent)};
+    --pwt-text-color: #{var(--text)};
     --pwt-gauge-default: #{$green};
     --pwt-gauge-back: #{$background};
     --pwt-gauge-warn: #{$yellow};
@@ -46,6 +51,23 @@
     --pwt-chart-primary: #{$accent};
     --pwt-chart-grid-stroke: #{$background};
 }
+
+@media (prefers-color-scheme: dark){
+    :root {
+        --text: #{$dark_text};
+        --background: #{$dark_background};
+        --background-accent: #{var(--background-accent)};
+
+        --pwt-panel-background: #{$dark_background_accent};
+        --pwt-text-color: #{$dark_text};
+        --pwt-gauge-default: #{$dark_green};
+        --pwt-gauge-back: #{$dark_background};
+        --pwt-gauge-warn: #{$dark_yellow};
+        --pwt-gauge-crit: #{$dark_red};
+        --pwt-chart-primary: #{$dark_accent};
+        --pwt-chart-grid-stroke: #{$dark_background};
+   }
+ }
 
 html {
     overflow: scroll;
@@ -59,13 +81,13 @@ html {
 ::-webkit-scrollbar {
     width: 0;
     height: 6px;
-    background: $input_background;
+    background: var(--input-background);
 
     &:hover {
-        background: $background_accent;
+        background: var(--background-accent);
     }
 }
 
 a {
-    color: $text;
+    color: var(--text);
 }

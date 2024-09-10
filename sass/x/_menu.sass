@@ -8,20 +8,20 @@
 
 .x-menu-default
 	background: $accent
-	border: 1px solid $background_accent
+	border: 1px solid var(--background-accent)
 
 .x-menu-item-text
-	color: $text
+	color: var(--text)
 
 .x-menu-header
 	border-radius: 1px
-	background: $background_accent
+	background: var(--background-accent)
 	border-width: 0
 
 .x-menu-item-icon-default.x-menu-item-icon.fa
 	&.fa-fw
 		&.fa-building, &.fa-folder, &.fa-floppy-o, &.fa-file-o, &.fa-clone, &.fa-send-o, &.fa-group, &.fa-user, &.fa-user-o, &.fa-bar-chart, &.fa-address-book-o, &.fa-clock-o, &.fa-shield, &.fa-file-text-o, &.fa-yahoo
-			color: $text
+			color: var(--text)
 		&.fa-play
 			color: $green
 		&.fa-stop, &.fa-power-off
@@ -30,7 +30,7 @@
 			color: $yellow
 
 	&.fa-heartbeat, &.fa-cube, &.fa-terminal, &.fa-desktop, &.fa-trash-o
-		color: $text
+		color: var(--text)
 	&.fa-stop
 		color: $redlight
 
@@ -51,17 +51,17 @@ div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[class*="x-menu-item-focus"],
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) >  div > div:nth-child(2) > div > div[class*="x-menu-item-focus"] > a, // PVE 7.0
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item-focus"] > a // PVE 7.0
-	background: $background_accent
+	background: var(--background-accent)
 
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"],
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"],
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"], // PVE 7.0
 div[aria-labelledby^="nodeCmdMenu-"][aria-labelledby$="_header-title-textEl"] > div:nth-child(2) > div > div:nth-child(2) > div > div[class*="x-menu-item"] > a[aria-disabled="true"], // PVE 7.0
 	opacity: 0.5
-	background: $background_accent
+	background: var(--background-accent)
 
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"]>div:nth-child(2)>div:nth-child(3)>div:nth-child(1)>div[class*="x-menu-item"]
 	background: inherit
 
 div[aria-labelledby^="ext-comp-"][aria-labelledby$="_header-title-textEl"]>div:nth-child(2)>div:nth-child(3)>div:nth-child(1)>div[class*="x-menu-item"]>a[class*="x-menu-item-focus"]
-	background: $background_accent
+	background: var(--background-accent)

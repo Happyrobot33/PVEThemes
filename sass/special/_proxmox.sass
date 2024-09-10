@@ -34,13 +34,13 @@ img[id^="proxmoxlogo-"]
 	border-left: 3px solid $input_background
 
 .pmx-md tbody tr:nth-of-type(even)
-	background-color: darken($background_accent, 1)
+	background-color: darken(var(--background-accent), 1)
 
 .pmx-md thead tr
-	background-color: darken($background_accent, 2)
+	background-color: darken(var(--background-accent), 2)
 
 .pmx-md tbody td, .pmx-md tbody tr:last-of-type td
-	border-bottom: 1px solid lighten($background_accent, 5)
+	border-bottom: 1px solid lighten(var(--background-accent), 5)
 
 .pmx-md tbody tr:hover td
-	background-color: lighten($background_accent, 10)
+	background-color: lighten(var(--background-accent), 10)

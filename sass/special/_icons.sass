@@ -4,7 +4,7 @@
 .pve-itype-icon-processor::before, .pmx-itype-icon-processor::before, .pve-itype-icon-cpu::before
 	background-image: url(../images/icon-cpu.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .pve-itype-icon-memory, .pmx-itype-icon-memory
 	//background-image: url('/pve2/images/dd_icon-ram.png')
@@ -13,7 +13,7 @@
 .pve-itype-icon-memory::before, .pmx-itype-icon-memory::before
 	background-image: url(/pve2/images/icon-memory.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .pve-itype-icon-storage
 	//background-image: url('/pve2/images/dd_icon-hdd.png')
@@ -34,7 +34,7 @@
 .pve-itype-icon-cdrom::before
 	background-image: url(/pve2/images/icon-cd-drive.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 //.pve-itype-treelist-item-icon-cdrom
 //	content: ' '
@@ -55,7 +55,7 @@
 .pve-itype-icon-pci::before
 	background-image: url(/pve2/images/icon-pci.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .pve-itype-icon-usb
 	//background-image: url('/pve2/images/dd_icon-usb.png')
@@ -67,7 +67,7 @@
 .pve-itype-icon-serial::before
 	background-image: url(/pve2/images/icon-serial.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .pve-itype-icon-cloud
 	//background-image: url('/pve2/images/dd_icon-cloud.png')
@@ -79,45 +79,45 @@
 .pve-itype-icon-die::before
 	background-image: url(/pve2/images/icon-die.svg)
 	@include iconPosition()
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .fa-exchange:before
-	color: $text
+	color: var(--text)
 
 .fa-usb:before
-	color: $text
+	color: var(--text)
 
 .fa-object-group:before
-	color: $text
+	color: var(--text)
 
 .fa-hdd-o:before
-	color: $text
+	color: var(--text)
 
 .fa-cloud:before
-	color: $text
+	color: var(--text)
 
 .x-treelist-item-icon.fa:before
 	color: inherit
 
 .fa-volume-up:before
-	color: $text
+	color: var(--text)
 
 
 .fa-ceph:before
 	background-image: url(/pve2/images/logo-ceph.png)
-	@include recolor($text)
+	@include recolor(var(--text))
 
 .fa-sign-out:before
 	color: $red
 
 .fa-language:before
-	color: $text
+	color: var(--text)
 
 .fa-building.online
 	color: $accent !important
 
 .fa-window-restore:before
-	color: $text
+	color: var(--text)
 
 .fa-fw.x-grid-icon-custom.fa
 	&.fa-database
@@ -147,16 +147,16 @@
 .lxc:after
 	background: transparent !important
 	color: $accent
-	text-shadow: 0 0 0 $background !important
+	text-shadow: 0 0 0 var(--background)!important
 
 .qemu:after
 	background: transparent !important
 	color: $accent
-	text-shadow: 0 0 0 $background !important
+	text-shadow: 0 0 0 var(--background)!important
 
 .fa-network-wired:before
 	//background-image: url('/pve2/images/dd_icon-fa-network-wired.svg')
-	color: $text
+	color: var(--text)
 
 .fa-sdn:before
 	//background-image: url('/pve2/images/dd_icon-sdn.svg')

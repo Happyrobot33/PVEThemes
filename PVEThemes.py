@@ -4,7 +4,7 @@ try:
     import sass
     from sass import compile
 except ImportError:
-    print("FATAL: requirements missing, please run 'pip3 install -r requirements.txt'")
+    print("FATAL: requirements missing or environment not active, please run the run.sh file or install.sh instead of this file.")
     exit(1)
 
 proxmoxLibLocation = "/usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js"

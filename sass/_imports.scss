@@ -52,22 +52,24 @@
     --pwt-chart-grid-stroke: #{$background};
 }
 
-@media (prefers-color-scheme: dark){
-    :root {
-        --text: #{$dark_text};
-        --background: #{$dark_background};
-        --background-accent: #{var(--background-accent)};
+@if variable-exists(dark_text) {   
+    @media (prefers-color-scheme: dark){
+        :root {
+            --text: #{$dark_text};
+            --background: #{$dark_background};
+            --background-accent: #{var(--background-accent)};
 
-        --pwt-panel-background: #{$dark_background_accent};
-        --pwt-text-color: #{$dark_text};
-        --pwt-gauge-default: #{$dark_green};
-        --pwt-gauge-back: #{$dark_background};
-        --pwt-gauge-warn: #{$dark_yellow};
-        --pwt-gauge-crit: #{$dark_red};
-        --pwt-chart-primary: #{$dark_accent};
-        --pwt-chart-grid-stroke: #{$dark_background};
-   }
- }
+            --pwt-panel-background: #{$dark_background_accent};
+            --pwt-text-color: #{$dark_text};
+            --pwt-gauge-default: #{$dark_green};
+            --pwt-gauge-back: #{$dark_background};
+            --pwt-gauge-warn: #{$dark_yellow};
+            --pwt-gauge-crit: #{$dark_red};
+            --pwt-chart-primary: #{$dark_accent};
+            --pwt-chart-grid-stroke: #{$dark_background};
+        }
+    }
+}
 
 html {
     overflow: scroll;

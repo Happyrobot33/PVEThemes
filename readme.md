@@ -42,3 +42,7 @@ This should hopefully fix any issues.
 ![discord dark](./themes/previews/theme-discord-dark.png)
 ![discord light](./themes/previews/theme-discord-light.png)
 ![nordigr](./themes/previews/theme-nordigr.png)
+![catppuccin latte](./themes/previews/theme-catppuccin-latte.png)
+![catppuccin frappe](./themes/previews/theme-catppuccin-frappe.png)
+![catppuccin macchiato](./themes/previews/theme-catppuccin-macchiato.png)
+![catppuccin mocha](./themes/previews/theme-catppuccin-mocha.png)

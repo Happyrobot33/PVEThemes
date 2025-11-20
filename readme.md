@@ -14,15 +14,15 @@ there is a few additional tweaks that can be enabled using the script. These are
 ## Installation
 Run the following commands in your PVE instance:
 ```bash
-git clone https://github.com/Happyrobot33/PVEThemes
-cd PVEThemes
+git clone https://github.com/Damcore/More-Themes-for-PVEThemes
+cd More-Themes-for-PVEThemes
 chmod +x install.sh
 ./install.sh
 ```
 
 Or this one-liner:
 ```bash
-git clone https://github.com/Happyrobot33/PVEThemes && cd PVEThemes && chmod +x install.sh && ./install.sh
+git clone https://github.com/Damcore/More-Themes-for-PVEThemes && cd More-Themes-for-PVEThemes && chmod +x install.sh && ./install.sh
 ```
 
 if you have ran the install.sh script before, you can instead just run the run.sh script

@@ -1,4 +1,6 @@
 Original idea and SASS files from https://github.com/Weilbyte/PVEDiscordDark
+# THIS PROJECT IS STILL MAINTAINED!
+The project itself is extremely low maintenance, hence there is periods with no commits for months. However, I am still maintaining this porject and will be for the foreseable future. Opened PRs are sent straight to my email so I will see them. If you have a theme you have concocted and want to see officially added, feel free to open a PR with it!
 
 # Supported Proxmox Versions
 - 7.4

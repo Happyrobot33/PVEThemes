@@ -2,7 +2,7 @@
 
 apt update
 
-apt install python3-pip python3.11-venv -y
+apt install python3-pip python3-venv -y
 
 #virtual env
 python3 -m venv pvethemes

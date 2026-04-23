@@ -49,3 +49,4 @@ This should hopefully fix any issues.
 ![catppuccin frappe](./themes/previews/theme-catppuccin-frappe.png)
 ![catppuccin macchiato](./themes/previews/theme-catppuccin-macchiato.png)
 ![catppuccin mocha](./themes/previews/theme-catppuccin-mocha.png)
+![monochrome](./themes/previews/theme-monochrome.png)

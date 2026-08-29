@@ -1,55 +1,55 @@
 .x-tree-icon.x-tree-icon-custom
 	&.x-tree-icon-parent-expanded.fa
 		&.fa-server
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-building
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-database
-			color: $accent !important
+			color: var(--accent) !important
 		
 		&.fa-th
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-desktop
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-cube
-			color: $accent !important
+			color: var(--accent) !important
 	&.x-tree-icon-parent.fa
 		&.fa-server
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-building
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-cube
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-desktop
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-database
-			color: $accent !important
+			color: var(--accent) !important
 
 		&.fa-th
-			color: $accent !important
+			color: var(--accent) !important
 	&.x-tree-icon-leaf.fa
 		&.fa-cube
 			color: adjust-color($accent, $lightness: -20%) !important
 			&.running
-				color: $accent !important
+				color: var(--accent) !important
 		&.fa-fw.fa-unlock
 			color: white
 		&.fa-desktop
-			color: $accent !important
+			color: var(--accent) !important
 			&.stopped
 				color: adjust-color($accent, $lightness: -20%) !important
 		&.fa-database
-			color: $accent !important
+			color: var(--accent) !important
 		&.fa-th
-			color: $accent !important
+			color: var(--accent) !important
 		&.fa-file-o
 			&:before
 				color: rgba($accent, 0.6)
@@ -59,17 +59,17 @@
 				text-shadow: none
 		&.fa-building.online
 			&:before
-				color: $accent
+				color: var(--accent)
 		&.fa-tags
 			color: adjust-color($accent, $lightness: -20%) !important
 	&.lock-migrate:after
-		color: $yellow
+		color: var(--yellow)
 
 .x-tree-icon-parent-expanded:not(.x-tree-icon-custom):before, .x-tree-icon-parent:not(.x-tree-icon-custom):before
 	color: white
 
 .x-tree-icon-custom:after
-	text-shadow: 0 0 0 $background
+	text-shadow: 0 0 0 var(--background)
 
 .x-tree-arrows .x-tree-expander
 	//background-image: url('/pve2/images/dd_arrows.png')

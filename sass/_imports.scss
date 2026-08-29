@@ -37,6 +37,17 @@
 @import './sass/special/_charts.sass';
 
 :root {
+    --text: #{$text};
+    --background: #{$background};
+    --background-accent: #{$background_accent};
+    --input-background: #{$input_background};
+    --button_text: #{$button_text};
+    --light-gray: #{$lightGray};
+    --green: #{$green};
+    --yellow: #{$yellow};
+    --red: #{$red};
+    --redlight: #{$redlight};
+
     --pwt-panel-background: #{$background_accent};
     --pwt-text-color: #{$text};
     --pwt-gauge-default: #{$green};
@@ -45,6 +56,32 @@
     --pwt-gauge-crit: #{$red};
     --pwt-chart-primary: #{$accent};
     --pwt-chart-grid-stroke: #{$background};
+}
+
+@if variable-exists(dark_text) {   
+    @media (prefers-color-scheme: dark){
+        :root {
+            --text: #{$dark_text};
+            --background: #{$dark_background};
+            --background-accent: #{$dark_background_accent};
+            --input-background: #{$dark_input_background};
+            --button_text: #{$dark_button_text};
+            --light-gray: #{$dark_lightGray};
+            --green: #{$dark_green};
+            --yellow: #{$dark_yellow};
+            --red: #{$dark_red};
+            --redlight: #{$dark_redlight};
+
+            --pwt-panel-background: #{$dark_background_accent};
+            --pwt-text-color: #{$dark_text};
+            --pwt-gauge-default: #{$dark_green};
+            --pwt-gauge-back: #{$dark_background};
+            --pwt-gauge-warn: #{$dark_yellow};
+            --pwt-gauge-crit: #{$dark_red};
+            --pwt-chart-primary: #{$dark_accent};
+            --pwt-chart-grid-stroke: #{$dark_background};
+        }
+    }
 }
 
 html {
@@ -59,13 +96,13 @@ html {
 ::-webkit-scrollbar {
     width: 0;
     height: 6px;
-    background: $input_background;
+    background: var(--input-background);
 
     &:hover {
-        background: $background_accent;
+        background: var(--background-accent);
     }
 }
 
 a {
-    color: $text;
+    color: var(--text);
 }
